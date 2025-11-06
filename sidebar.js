@@ -124,58 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const featureStates = (window.AMBIS && window.AMBIS.featureStates) || {};
-  const payrollLinks = sidebar.querySelectorAll('[data-feature="payroll"]');
-
-  function applyPayrollState() {
-    const state = (featureStates.payroll || 'active').toLowerCase();
-    payrollLinks.forEach((link) => {
-      if (!(link instanceof HTMLElement)) return;
-
-      if (state === 'hidden') {
-        link.classList.add('hidden');
-        link.setAttribute('aria-hidden', 'true');
-        link.removeAttribute('aria-disabled');
-        link.removeEventListener('click', preventNavigation);
-        link.setAttribute('hidden', '');
-        return;
-      }
-
-      link.classList.remove('hidden');
-      link.removeAttribute('aria-hidden');
-      link.removeAttribute('hidden');
-
-      if (state === 'maintenance') {
-        link.setAttribute('aria-disabled', 'true');
-        link.title = 'Fitur dalam pemeliharaan.';
-        link.removeEventListener('click', preventNavigation);
-        link.addEventListener('click', preventNavigation);
-      } else {
-        link.removeAttribute('aria-disabled');
-        if (link.title === 'Fitur dalam pemeliharaan.') {
-          link.title = link.getAttribute('data-label') || link.title;
-        }
-        link.removeEventListener('click', preventNavigation);
-      }
-    });
-  }
-
-  function preventNavigation(event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  applyPayrollState();
-
-  if (window.AMBIS && typeof window.AMBIS.onFeatureStateChange === 'function') {
-    try {
-      window.AMBIS.onFeatureStateChange('payroll', (nextState) => {
-        featureStates.payroll = nextState;
-        applyPayrollState();
-      });
-    } catch {}
-  }
-
   // --- Blocked feature dialog (Manajemen Pengguna)
   const USER_MGMT_SELECTOR = 'a[href="manajemen-pengguna.html"]';
   const userMgmtLinks = sidebar ? sidebar.querySelectorAll(USER_MGMT_SELECTOR) : [];
