@@ -3,6 +3,16 @@
   background-color:#232D34;
 }
 .sb-item[aria-current="page"]{padding-left:.75rem;}
+.sb-item[aria-current="page"]::before{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:8px;
+  bottom:8px;
+  width:3px;
+  border-radius:9999px;
+  background:#00B5AD;
+}
 .sb-item[aria-current="page"] .sb-label{color:#fff;font-weight:600;}
 .sb-item:focus,
 .sb-item:hover{
