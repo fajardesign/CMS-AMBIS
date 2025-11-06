@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMBIS — Informasi Rekening</title>
+
+  <script>
+    try {
+      if (localStorage.getItem('ambis:sidebar-collapsed') === '1') {
+        document.documentElement.classList.add('sidebar-collapsed');
+      }
+    } catch {}
+  </script>
+
+  <!-- Tailwind + fonts -->
+  <script>
+    /* CDN JIT safelist: only classes toggled by local JS on this page */
+    tailwind = window.tailwind || {};
+    const modalSafelist = window.AMBIS_MODAL_SAFELIST || (window.AMBIS_MODAL_SAFELIST = [
+      'fixed','inset-0','z-[9999]','hidden','grid','place-items-center','overflow-y-auto','bg-slate-950/70','px-4','py-6','backdrop-blur-sm','sm:px-6',
+      'relative','w-full','max-w-md','overflow-hidden','rounded-2xl','bg-white','px-6','py-8','text-center','shadow-2xl','ring-1','ring-black/5','transition',
+      'mx-auto','flex','h-16','w-16','items-center','justify-center','rounded-full','bg-cyan-500','text-white','shadow-lg','shadow-cyan-500/40',
+      'text-3xl','font-bold','mt-6','space-y-3','text-xl','font-semibold','text-slate-900','text-base','text-slate-600','mt-8','inline-flex',
+      'bg-cyan-600','px-5','py-3','shadow-cyan-600/40','hover:-translate-y-px','hover:bg-cyan-500',
+      'focus-visible:outline','focus-visible:outline-2','focus-visible:outline-offset-2','focus-visible:outline-cyan-400'
+    ]);
+    tailwind.config = {
+      safelist: [
+        ...modalSafelist,
+        "opacity-0","opacity-100","translate-y-0","translate-y-1",
+        "ring-2","ring-cyan-400","bg-cyan-50","border-cyan-300",
+        "text-slate-900","text-slate-400",
+        "bg-cyan-100","text-cyan-600","bg-orange-100","text-orange-600",
+        "bg-pink-100","text-pink-600","bg-purple-100","text-purple-600",
+        "bg-emerald-100","text-emerald-600"
+      ]
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/air-datepicker@3.4.0/air-datepicker.css">
+  <!-- Global styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-[Mulish] bg-gray-50 text-slate-900">
+  <div class="h-screen overflow-hidden flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sb-bg sticky top-0 self-start h-screen w-[300px] text-slate-300 relative border-r border-slate-800/60 shrink-0 overflow-hidden">
+
+      <div class="px-6 pt-6 flex items-center gap-4 overflow-hidden">
+        <img
+          src="img/ambis-vertical-logo.svg"
+          alt="AMBIS"
+          class="w-14 h-14 flex-none"
+        />
+
+        <!-- text may wrap to 2 lines; hidden when sidebar collapses via .sb-label -->
+        <div class="sb-label min-w-0 pr-2">
+          <p
+            id="brandName"
+            class="text-slate-400 text-[18px] leading-tight whitespace-normal break-words"
+            data-brand-name
+          ></p>
+
+        </div>
+      </div>
+
+
+
+
+      <nav class="mt-8 px-4 pb-28">
+        <p class="px-2 text-[11px] tracking-[.18em] text-slate-400/80 mb-3">UTAMA</p>
+
+        <a href="dashboard.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/dashboard.svg" alt="">
+          <span class="sb-label text-slate-400 text-[16px]">Beranda</span>
+        </a>
+
+        <a href="informasi-rekening.html" aria-current="page" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/inforekening-active.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Informasi Rekening</span>
+        </a>
+
+        <a href="transfer.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/transfer.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Transfer</span>
+        </a>
+
+        <a href="persetujuan-transaksi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/otorisasi.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Persetujuan Transaksi</span>
+        </a>
+
+        <a href="biller.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+            <img class="block w-6 h-6" src="img/sidebar/biller.svg" alt="">
+          <span class="sb-label text-[16px] font-medium">Beli &amp; Bayar</span>
+        </a>
+
+        <a href="mutasi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/mutasi.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Mutasi &amp; e-Statement</span>
+        </a>
+
+        <p class="px-2 mt-7 text-[11px] tracking-[.18em] text-slate-400/80 mb-3">ATUR</p>
+
+        <a href="manajemen-pengguna.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/user.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Manajemen Pengguna</span>
+        </a>
+
+        <a href="batas-transaksi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/limit.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Batas Transaksi</span>
+        </a>
+
+        <a href="atur-persetujuan.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/akses.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Atur Persetujuan</span>
+        </a>
+      </nav>
+
+      <div class="absolute left-0 right-0 bottom-0 border-t border-white/10 px-6 py-4 flex items-center justify-between">
+        <span id="collapseLabel" class="sb-label text-slate-300">Perkecil Navigasi</span>
+        <button id="navToggle" aria-expanded="true"
+                class="w-6 h-6 grid place-items-center rounded-md border border-white/15 bg-white/5 hover:bg-white/10">
+          <img id="collapseIcon" src="img/shrink.svg" alt="" class="w-4 h-4">
+        </button>
+      </div>
+    </aside>
+    <!-- ============ /SIDEBAR ============ -->
+
+    <!-- ============ MAIN ============ -->
+    <main class="flex-1 min-w-0 bg-white h-screen overflow-y-auto">
+      <div class="px-6 py-2">
+    <!-- ============ HEADER ============ -->
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-6 pb-2 border-b border-slate-200">
+          <div class="h-16 flex items-center gap-3">
+              <img src="img/header/informasi-rekening.svg" alt="Informasi Rekening"/>
+              <h1 class="text-[24px] leading-none tracking-tight font-semibold">Informasi Rekening</h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-4 py-2 rounded-xl border text-base bg-white hover:bg-slate-50 flex items-center gap-2">
+              <img src="img/dashboard/bantuan.svg" alt="Notifikasi" class="w-5 h-5 object-contain" />
+              <span class="text-slate-700 font-medium">Bantuan</span>
+            </button>
+            <button class="px-4 py-2 rounded-xl border text-base bg-white hover:bg-slate-50 flex items-center gap-2" data-logout-button>
+              <img src="img/dashboard/keluar.svg" alt="Keluar" class="w-5 h-5 object-contain" />
+              <span class="text-slate-700 font-medium">Keluar</span>
+            </button>
+          </div>
+        </div>
+        <!-- ============ HEADER ============ -->
+
+        <!-- ============ PAGE CONTENT ============ -->
+
+        <section class="flex flex-wrap items-start justify-between gap-4 mb-8">
+          <div class="flex-1 min-w-[220px]">
+            <h2 class="text-2xl font-semibold text-slate-900">Total Saldo Aktif</h2>
+            <p class="mt-1 text-sm text-slate-500">dari semua rekening</p>
+            <p id="totalBalanceValue" data-total-balance class="mt-3 text-3xl font-bold text-slate-900 tracking-tight">Rp0</p>
+          </div>
+          <div class="flex flex-col items-end gap-2 py-4 pr-4">
+            <button
+              type="button"
+              id="balanceToggle"
+              class="inline-flex items-center gap-2 text-slate-600 hover:text-slate-600 font-semibold"
+            >
+              <span data-toggle-label class="text-right">Tampilkan Semua Saldo</span>
+              <img
+                src="img/icon/tampilkan-saldo.svg"
+                alt="Tampilkan semua saldo"
+                class="w-5 h-5"
+              />
+            </button>
+            <button
+              type="button"
+              id="addAccountBtn"
+              class="inline-flex items-center gap-2 mt-4 rounded-xl border border-cyan-500 px-4 py-2 text-cyan-600 hover:bg-cyan-50 font-semibold"
+            >
+              <span>Tambah Rekening</span>
+              <span aria-hidden="true" class="text-lg leading-none">+</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <div id="accountGrid" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"></div>
+          <div id="accountEmptyState" class="hidden rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
+            <p class="font-semibold text-slate-700">Belum ada rekening terdaftar</p>
+            <p class="mt-2 text-sm text-slate-500">Tambahkan rekening baru untuk melihat informasi saldo di sini.</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+    <!-- ============ /MAIN ============ -->
+
+    <!-- ============ DRAWER ============ -->
+  
+  <div id="drawer" class="h-full flex flex-col bg-white flex-shrink-0 border-l border-slate-100 relative">
+    <div id="addAccountPane" class="h-full flex flex-col relative" aria-hidden="false">
+      <div class="sticky top-0 z-20 border-b border-slate-200 bg-white">
+        <div class="flex items-center justify-between px-6 py-4">
+          <h2 class="text-lg font-semibold text-slate-900">Tambah Rekening</h2>
+          <button type="button" id="drawerCloseBtn" data-drawer-close class="text-2xl leading-none text-slate-500 hover:text-slate-700" aria-label="Tutup drawer">
+            ×
+          </button>
+        </div>
+      </div>
+
+      <form id="addAccountForm" class="flex-1 overflow-y-auto px-4 space-y-6" autocomplete="off" novalidate>
+        <section class="mt-2">
+          <button type="button" id="giroSpecToggle" class="drawer-accordion-trigger flex w-full items-center justify-between gap-3  py-4 text-left" aria-expanded="true">
+            <span class="text-sm font-semibold text-slate-900">Spesifikasi GIRO</span>
+            <svg class="drawer-accordion-chevron h-5 w-5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </button>
+          <div id="giroSpecContent" class="drawer-accordion-content" data-expanded="true" aria-hidden="false">
+            <div class="">
+              <dl class="divide-y divide-slate-200">
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Setoran Awal</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Saldo Minimum Mengendap</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Biaya Admin Bulanan</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp30.000,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Biaya Setoran Kliring</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp2.000,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening Pasif</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening di bawah Saldo Minimum</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp1.000,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Biaya Admin 3 Bulan di bawah Saldo Minimum</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+                </div>
+                <div class="flex items-start justify-between gap-6 py-4">
+                  <dt class="text-sm text-slate-500">Biaya Penutupan Rekening</dt>
+                  <dd class="text-sm font-semibold text-slate-900">Rp55.000,-</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section class="space-y-3">
+          <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">Detail Rekening</p>
+          <div>
+            <label for="accountName" class="block text-sm font-semibold text-slate-700">Nama Rekening</label>
+            <div class="relative mt-2">
+              <input id="accountName" name="accountName" type="text" maxlength="15" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0" placeholder="Contoh: Rekening Vendor" aria-describedby="accountNameCounter accountNameError" aria-required="true">
+              <span id="accountNameCounter" class="pointer-events-none absolute bottom-3 right-4 text-xs text-slate-400">0/15</span>
+            </div>
+            <p id="accountNameError" class="mt-2 text-xs text-red-500 hidden"></p>
+          </div>
+        </section>
+
+        <div id="moveCategoryDropdown" class="relative">
+          <label class="block   mb-1">Tujuan Penambahan Rekening</label>
+          <button id="moveCategoryBtn" type="button" class="w-full border rounded-xl px-3 py-3 flex items-center justify-between" aria-haspopup="listbox" aria-expanded="false">
+            <span id="moveCategoryText" class="text-slate-500" data-placeholder="Pilih tujuan penambahan rekening">Pilih tujuan penambahan rekening</span>
+            <span class="text-slate-400">▾</span>
+          </button>
+          <ul id="moveCategoryList" class="hidden absolute left-0 right-0 mt-1 bg-white rounded-xl border shadow divide-y z-10" role="listbox">
+            <li><button type="button" data-value="Transaksi Bisnis" class="w-full text-left px-4 py-4 hover:bg-slate-50 border-b-0" role="option">Transaksi Bisnis</button></li>
+            <li><button type="button" data-value="Pencairan Pinjaman" class="w-full text-left px-4 py-4 hover:bg-slate-50 border-b-0" role="option">Pencairan Pinjaman</button></li>
+            <li><button type="button" data-value="Sharing Profit (Multi Bisnis)" class="w-full text-left px-4 py-4 hover:bg-slate-50 border-b-0" role="option">Sharing Profit (Multi Bisnis)</button></li>
+            <li><button type="button" data-value="Lainnya" class="w-full text-left px-4 py-4 hover:bg-slate-50 border-b-0" role="option">Lainnya</button></li>
+          </ul>
+          <input type="hidden" id="accountPurpose" name="accountPurpose" value="">
+          <p id="accountPurposeError" class="mt-2 text-xs text-red-500 hidden"></p>
+        </div>
+
+        <section class="space-y-3">
+          <div>
+            <div class="flex items-start gap-3">
+              <input id="termsAgreement" name="termsAgreement" type="checkbox" class="mt-1 h-5 w-5 rounded border border-slate-300 text-cyan-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0" aria-required="true" aria-describedby="termsAgreementError">
+              <div>
+                <label for="termsAgreement" class="font-semibold text-slate-900">Syarat dan Ketentuan Pembukaan Rekening</label>
+                <p class="mt-2 text-sm leading-relaxed text-slate-500">Saya menyetujui syarat dan ketentuan yang telah ditetapkan dalam pembuatan rekening Giro Amar Bank di PT Bank Amar Indonesia Tbk. <a href="syarat-dan-ketentuan.html" target="_blank" rel="noopener" class="font-semibold text-cyan-600 hover:text-cyan-700">Lihat Syarat dan Ketentuan</a></p>
+              </div>
+            </div>
+            <p id="termsAgreementError" class="mt-2 text-xs text-red-500 hidden"></p>
+          </div>
+        </section>
+      </form>
+
+      <div class="sticky bottom-0 border-t border-slate-200 bg-white p-4">
+        <button type="submit" id="confirmAddAccountBtn" form="addAccountForm" class="w-full rounded-xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700 disabled:opacity-50" disabled>Konfirmasi Tambah Rekening</button>
+      </div>
+      <div class="pointer-events-none absolute inset-0">
+        <div id="addAccountConfirmOverlay" class="hidden absolute inset-0 bg-slate-900/30 opacity-0 transition-opacity duration-200 z-40 pointer-events-auto"></div>
+        <div id="addAccountConfirmSheet" class="absolute inset-x-0 bottom-0 z-50 h-full bg-white rounded-t-3xl shadow-2xl translate-y-full transition-transform duration-300 flex flex-col pointer-events-auto">
+          <div class="sticky top-0 p-4 pb-4 text-center border-b border-slate-200 bg-white rounded-t-3xl">
+            <h3 class="text-base font-semibold">Konfirmasi Tambah Rekening</h3>
+          </div>
+          <div class="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+            <div class="flex items-start gap-3 px-4 py-3 rounded-xl border border-sky-100 bg-sky-50 text-sky-800">
+              <img class="w-6 h-6" src="img/icon/info-2.svg" alt="Informasi" />
+              <p class="text-sm leading-relaxed">Mohon pastikan data sudah sesuai</p>
+            </div>
+
+            <section class="overflow-hidden">
+              <button type="button" id="addAccountConfirmGiroToggle" class="flex w-full items-center justify-between gap-3 py-4 text-left" aria-expanded="false">
+                <span class="text-sm font-semibold text-slate-900">Spesifikasi GIRO</span>
+                <svg data-chevron class="h-5 w-5 text-slate-500 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+              <div id="addAccountConfirmGiroContent" class="hidden border-t border-slate-200" aria-hidden="true">
+                <dl class="divide-y divide-slate-200">
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Setoran Awal</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Saldo Minimum Mengendap</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin Bulanan</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp30.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Setoran Kliring</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp2.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening Pasif</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening di bawah Saldo Minimum</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp1.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin 3 Bulan di bawah Saldo Minimum</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Penutupan Rekening</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp55.000,-</dd>
+                  </div>
+                </dl>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">Detail Rekening</p>
+              <div class="space-y-6">
+                <div class="flex items-start justify-between gap-6">
+                  <span class="text-sm text-slate-500">Nama Rekening</span>
+                  <span id="addAccountConfirmName" class="text-sm font-semibold text-slate-900 text-right max-w-[60%] break-words">-</span>
+                </div>
+                <div class="flex items-start justify-between gap-6">
+                  <span class="text-sm text-slate-500">Tujuan Penambahan Rekening</span>
+                  <span id="addAccountConfirmPurpose" class="text-sm font-semibold text-slate-900 text-right max-w-[60%] break-words">-</span>
+                </div>
+              </div>
+            </section>
+            <div id="addAccountOtpSection" class="hidden border-t border-slate-200 pt-6 space-y-4">
+              <h4 class="text-lg font-semibold text-slate-900">Masukkan kode verifikasi</h4>
+              <div class="grid grid-cols-8 gap-2">
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+              </div>
+              <p class="text-sm text-slate-500 text-center">
+                Silakan login &amp; cek aplikasi Amar Bank Bisnis pada handphone Anda untuk mendapatkan kode verifikasi.
+              </p>
+              <p id="addAccountOtpCountdown" class="text-sm text-slate-500 text-center">
+                <span id="addAccountOtpCountdownMessage">Sesi akan berakhir dalam</span>
+                <span id="addAccountOtpTimer" class="text-cyan-500 font-semibold">00:30</span>
+              </p>
+              <button id="addAccountOtpResend" type="button" class="hidden mx-auto rounded-lg border border-cyan-300 px-4 py-2 text-sm font-medium text-cyan-500 hover:bg-slate-50">
+                Kirim Ulang Kode Verifikasi
+              </button>
+            </div>
+          </div>
+          <div class="sticky bottom-0 border-t border-slate-200 bg-white px-4 py-4">
+            <div class="flex items-center gap-3">
+              <button type="button" id="addAccountConfirmCancel" class="flex-1 rounded-xl border border-slate-300 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition">Batalkan</button>
+              <button type="button" id="addAccountConfirmSubmit" class="flex-1 rounded-xl bg-cyan-600 py-3 font-semibold text-white transition hover:bg-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed">Lanjut Tambah Rekening</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="accountDetailPane"
+      class="hidden h-full flex flex-col bg-white"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="accountDetailTitle"
+      aria-hidden="true"
+    >
+      <div class="sticky top-0 z-20 border-b border-slate-200 bg-white">
+        <div class="flex items-center justify-between px-6 py-4">
+          <h2 id="accountDetailTitle" class="text-lg font-semibold text-slate-900">Detail Rekening</h2>
+          <button
+            type="button"
+            class="text-2xl leading-none text-slate-500 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-1"
+            data-account-detail-close
+            data-account-detail-focus
+            aria-label="Tutup detail rekening"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 space-y-6" data-account-detail-scroll>
+        <section class="bg-white space-y-6">
+          <div class="flex items-center gap-3">
+            <span
+              id="accountDetailAvatar"
+              class="w-10 h-10 rounded-full grid place-items-center font-semibold bg-cyan-100 text-cyan-600"
+              aria-hidden="true"
+            >
+              O
+            </span>
+            <div class="flex-1 min-w-0">
+              <p id="accountDetailName" class="text-base font-semibold text-slate-900">Operasional</p>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <p class="text-xs font-medium text-slate-400">Nomor Rekening</p>
+              <div class="mt-1 flex items-center gap-2">
+                <p id="accountDetailNumber" class="text-sm font-semibold text-slate-900 tracking-wide break-all">0009 6789 5439</p>
+                  <button
+                    type="button"
+                    id="accountDetailCopyBtn"
+                    class="inline-flex items-center justify-center p-2 text-slate-500 hover:text-cyan-600 hover:border-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-1"
+                    aria-label="Salin nomor rekening"
+                  >
+                    <img src="img/icon/copy.svg" alt="" class="w-4 h-4" />
+                  </button>
+                </div>
+          </div>
+
+          <div class="">
+            <div class="flex items-center gap-2 text-sm text-slate-500">
+              <span>Saldo Aktif</span>
+              <span class="inline-flex items-center" title="Saldo yang dapat digunakan">
+                <img src="img/icon/info.svg" alt="Informasi saldo aktif" class="w-4 h-4" />
+              </span>
+            </div>
+            <p id="accountDetailActiveBalance" class="mt-2 font-semibold text-slate-900 tracking-tight">Rp1.000.000.000.000,00</p>
+          </div>
+
+          <div class="border-t border-slate-200 pt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <div class="flex items-center gap-2 text-sm text-slate-500">
+                <span>Total Saldo Tertahan</span>
+                <span class="inline-flex items-center" title="Saldo yang belum dapat digunakan">
+                  <img src="img/icon/info.svg" alt="Informasi saldo tertahan" class="w-4 h-4" />
+                </span>
+              </div>
+              <p id="accountDetailHeldBalance" class="mt-1 text-base font-semibold text-slate-900">Rp1.000.000,00</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 text-sm text-slate-500">
+                <span>Total Saldo</span>
+                <span class="inline-flex items-center" title="Jumlah seluruh saldo">
+                  <img src="img/icon/info.svg" alt="Informasi total saldo" class="w-4 h-4" />
+                </span>
+              </div>
+              <p id="accountDetailTotalBalance" class="mt-1 text-base font-semibold text-slate-900">Rp1.001.000.000,00</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-white">
+          <button
+            type="button"
+            id="accountDetailSpecToggle"
+            class="flex w-full items-center justify-between gap-3 py-6 text-left"
+            aria-expanded="true"
+          >
+            <span class="text-base font-semibold text-slate-900">Spesifikasi GIRO</span>
+            <svg
+              class="h-5 w-5 text-slate-500 transition-transform duration-200"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-chevron
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </button>
+          <div
+            id="accountDetailSpecContent"
+            class="border-t border-slate-200"
+            data-expanded="true"
+            aria-hidden="false"
+          >
+            <dl id="accountDetailSpecList" class="divide-y divide-slate-200">
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Setoran Awal</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Saldo Minimum Mengendap</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Biaya Admin Bulanan</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp30.000,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Biaya Setoran Kliring</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp2.000,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening Pasif</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening di bawah Saldo Minimum</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp1.000,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Biaya Admin 3 Bulan di bawah Saldo Minimum</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6 py-4">
+                <dt class="text-sm text-slate-500">Biaya Penutupan Rekening</dt>
+                <dd class="text-sm font-semibold text-slate-900">Rp55.000,-</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div
+      id="pendingApprovalPane"
+      class="hidden h-full flex flex-col bg-white"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pendingApprovalTitle"
+      aria-hidden="true"
+    >
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+        <h2 id="pendingApprovalTitle" class="text-lg font-semibold text-slate-900">Detail Persetujuan</h2>
+        <button
+          type="button"
+          id="pendingPaneCloseHeader"
+          class="text-2xl leading-none text-slate-500 transition hover:text-slate-700"
+          aria-label="Tutup"
+          data-pending-focus
+        >&times;</button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-4 space-y-4">
+        <section class="text-center space-y-4">
+          <img src="img/illustration-2.svg" alt="Menunggu persetujuan" class="mx-auto w-16 py-4 h-auto" />
+          <h3 class="text-xl font-semibold text-slate-900 pb-4">
+            Pengaturan Rekening Butuh Persetujuan
+          </h3>
+          <div class="space-y-3">
+            <p class="font-bold text-slate-900 text-left">Tambah Rekening</p>
+            <div class="text-left">
+              <button
+                type="button"
+                id="pendingSpecToggle"
+                class="flex w-full items-center justify-between gap-3 text-left text-sm font-semibold text-slate-900 transition hover:border-slate-300"
+                aria-expanded="false"
+              >
+                <span class="font-normal text-slate-600">Spesifikasi GIRO</span>
+                <svg data-chevron class="h-5 w-5 text-slate-500 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+              <div id="pendingSpecContent" class="hidden mt-3">
+                <dl class="divide-y divide-slate-200">
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Setoran Awal</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Saldo Minimum Mengendap</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp1.000.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin Bulanan</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp30.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Setoran Kliring</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp2.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening Pasif</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin Bulanan di Rekening di bawah Saldo Minimum</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp1.000,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Admin 3 Bulan di bawah Saldo Minimum</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp500,-</dd>
+                  </div>
+                  <div class="flex items-start justify-between gap-6 py-4">
+                    <dt class="text-sm text-slate-500">Biaya Penutupan Rekening</dt>
+                    <dd class="text-sm font-semibold text-slate-900">Rp55.000,-</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <div class="py-4 space-y-6">
+            <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">Detail Rekening</p>
+            <dl class="space-y-4">
+              <div class="flex items-start justify-between gap-6">
+                <dt class="text-sm text-slate-500">Nama Rekening</dt>
+                <dd id="pendingAccountName" class="text-sm font-semibold text-slate-900 text-right max-w-[60%] break-words">-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6">
+                <dt class="text-sm text-slate-500">Tujuan Penambahan Rekening</dt>
+                <dd id="pendingAccountPurpose" class="text-sm font-semibold text-slate-900 text-right max-w-[60%] break-words">-</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="py-4 space-y-6">
+            <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">Pembuat Permintaan</p>
+            <dl class="space-y-4">
+              <div class="flex items-start justify-between gap-6">
+                <dt class="text-sm text-slate-500">Dibuat oleh</dt>
+                <dd id="pendingRequestCreator" class="text-sm font-semibold text-slate-900 text-right max-w-[60%] break-words">-</dd>
+              </div>
+              <div class="flex items-start justify-between gap-6">
+                <dt class="text-sm text-slate-500">Tanggal &amp; Waktu</dt>
+                <dd id="pendingRequestDatetime" class="text-sm font-semibold text-slate-900 text-right max-w-[60%] break-words">-</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </div>
+      <div class="border-t border-slate-200 px-6 py-4">
+        <button
+          type="button"
+          id="pendingPaneCloseBtn"
+          class="w-full rounded-xl border border-cyan-500 py-3 text-sm font-semibold text-slate-900 transition hover:bg-cyan-50"
+        >
+          Tutup
+        </button>
+      </div>
+    </div>
+    <div
+      id="mutasiPane"
+      class="hidden h-full flex flex-col bg-white"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mutasiDrawerTitle"
+      aria-hidden="true"
+    >
+      <div class="flex flex-col h-full relative" id="mutasiDrawerInner">
+        <div class="flex items-center justify-between p-4 border-b border-slate-200">
+          <h2 id="mutasiDrawerTitle" class="text-lg font-semibold">Mutasi Rekening</h2>
+          <button
+            type="button"
+            id="mutasiDrawerClose"
+            class="text-2xl leading-none text-slate-500 hover:text-slate-700"
+            aria-label="Tutup drawer"
+          >&times;</button>
+        </div>
+
+        <div class="p-4">
+          <div class="bg-slate-50 rounded-2xl p-1 flex items-center gap-2">
+            <button
+              type="button"
+              class="flex-1 rounded-xl bg-white px-4 py-3 text-center font-semibold text-slate-900 shadow-sm"
+              aria-current="true"
+              data-tab-button="mutasi"
+              data-mutasi-focus
+            >
+              Mutasi Rekening
+            </button>
+            <button
+              type="button"
+              class="flex-1 rounded-xl px-4 py-3 text-center font-semibold text-slate-400 transition hover:text-slate-600"
+              aria-current="false"
+              data-tab-button="e-statement"
+            >
+              e-Statement
+            </button>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+          <div
+            data-tab-content="mutasi"
+            class="flex-1 flex flex-col overflow-hidden"
+          >
+            <div class="px-4 pb-4">
+              <div class="flex items-start gap-3 px-4 py-3 rounded-xl border border-sky-100 bg-sky-50 text-sky-800">
+                <img class="w-6 h-6" src="img/icon/info-2.svg" alt="Informasi">
+                <p class="text-sm leading-relaxed">Dapat menampilkan periode mutasi hingga 3 tahun terakhir</p>
+              </div>
+            </div>
+
+            <div class="px-4 pb-4" data-filter-group="mutasi">
+              <div class="flex flex-wrap gap-3">
+                <div class="filter relative" data-filter="date" data-name="Rentang Tanggal" data-default="Tanggal">
+                  <button class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[200px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold">
+                    <img src="img/icon/date-picker.svg" class="w-5 h-5 flex-none" alt="Rentang Tanggal" />
+                    <span class="filter-label flex-1 text-left leading-tight">Tanggal</span>
+                  </button>
+                  <div class="filter-panel absolute z-10 mt-2 p-4 rounded-xl border border-slate-200 bg-white shadow hidden w-[360px]">
+                    <div class="flex flex-col gap-3">
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="7 Hari Terakhir" class="mt-1.5">
+                        <span class="font-medium leading-tight">7 Hari Terakhir</span>
+                      </label>
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="30 Hari Terakhir" class="mt-1.5">
+                        <span class="font-medium leading-tight">30 Hari Terakhir</span>
+                      </label>
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="1 Tahun Terakhir" class="mt-1.5">
+                        <span class="font-medium leading-tight">1 Tahun Terakhir</span>
+                      </label>
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="custom" class="mt-1.5">
+                        <span class="font-medium leading-tight">Custom Rentang Tanggal</span>
+                      </label>
+                      <div class="custom-range hidden">
+                        <div class="grid grid-cols-2 gap-3">
+                          <label class="flex flex-col gap-2">
+                            <span class="text-sm font-semibold text-slate-900">Tanggal Awal</span>
+                            <div class="relative">
+                              <img
+                                src="img/icon/date-picker.svg"
+                                alt=""
+                                class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                              >
+                              <input
+                                type="text"
+                                class="h-11 w-full rounded-lg border border-slate-300 bg-white pl-10 pr-3 text-sm text-slate-700 placeholder-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                                placeholder="DD/MM/YYYY"
+                                data-date-start
+                                readonly
+                              />
+                            </div>
+                          </label>
+                          <label class="flex flex-col gap-2">
+                            <span class="text-sm font-semibold text-slate-900">Tanggal Akhir</span>
+                            <div class="relative">
+                              <img
+                                src="img/icon/date-picker.svg"
+                                alt=""
+                                class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                              >
+                              <input
+                                type="text"
+                                class="h-11 w-full rounded-lg border border-slate-300 bg-white pl-10 pr-3 text-sm text-slate-700 placeholder-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                                placeholder="DD/MM/YYYY"
+                                data-date-end
+                                readonly
+                              />
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex justify-end gap-2 mt-4">
+                      <button class="cancel px-3 py-2 rounded-lg border text-slate-600 w-1/2">Batalkan</button>
+                      <button class="apply px-3 py-2 rounded-lg bg-cyan-600 text-white disabled:opacity-50 w-1/2" disabled>Terapkan</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="filter relative" data-filter="type" data-name="Jenis Transaksi" data-default="Jenis Transaksi">
+                  <button class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[200px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold">
+                    <img src="img/icon/filter.svg" class="w-5 h-5 flex-none" alt="Jenis Transaksi" />
+                    <span class="filter-label flex-1 text-left leading-tight">Jenis Transaksi</span>
+                  </button>
+                  <div class="filter-panel absolute z-10 mt-2 p-4 rounded-xl border border-slate-200 bg-white shadow hidden w-[280px]">
+                    <div class="flex flex-col gap-3">
+                      <label class="flex items-center gap-2">
+                        <input type="checkbox" value="Masuk">
+                        <span>Masuk</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input type="checkbox" value="Keluar">
+                        <span>Keluar</span>
+                      </label>
+                    </div>
+                    <div class="flex justify-end gap-2 mt-4">
+                      <button class="cancel px-3 py-2 rounded-lg border text-slate-600 w-1/2">Batalkan</button>
+                      <button class="apply px-3 py-2 rounded-lg bg-cyan-600 text-white disabled:opacity-50 w-1/2" disabled>Terapkan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto" id="mutasiDrawerContent">
+              <div id="mutasiLoading" class="h-full flex items-center justify-center">
+                <div class="flex flex-col items-center gap-3 text-slate-500">
+                  <span class="w-10 h-10 border-4 border-cyan-200 border-t-cyan-600 rounded-full animate-spin"></span>
+                  <span>Memuat data mutasi...</span>
+                </div>
+              </div>
+
+              <div id="mutasiError" class="hidden px-6 py-8 space-y-4">
+                <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700">Gagal memuat data, coba lagi</div>
+                <button id="mutasiRetry" class="px-4 py-3 rounded-xl border border-cyan-500 text-cyan-600 hover:bg-cyan-50 w-full">Muat Ulang</button>
+              </div>
+
+              <div id="mutasiEmpty" class="hidden px-6 py-12 flex flex-col items-center text-center gap-4 text-slate-500">
+                <div class="w-20 h-20 rounded-full bg-slate-100 grid place-items-center text-3xl">📄</div>
+                <div>
+                  <p class="font-semibold text-slate-700">Tidak ada transaksi pada periode ini</p>
+                  <p class="text-sm">Silakan ubah filter atau rentang tanggal untuk melihat transaksi lainnya.</p>
+                </div>
+              </div>
+
+              <div id="mutasiSuccess" class="hidden px-6 pb-10 space-y-6">
+                <div id="mutasiTransactionList" class="space-y-8"></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            data-tab-content="e-statement"
+            class="hidden flex-1 flex flex-col overflow-hidden"
+          >
+            <div class="flex-1 overflow-y-auto px-4 pb-24">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-start gap-3 px-4 py-3 rounded-xl border border-sky-100 bg-sky-50 text-sky-800">
+                  <img class="w-6 h-6" src="img/icon/info-2.svg" alt="Informasi">
+                  <p class="text-sm leading-relaxed">
+                    Unduh e-Statement rekening dalam format PDF berdasarkan periode yang Anda pilih.
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                  <div class="relative w-[240px]" data-e-statement-dropdown="year">
+                    <button
+                      type="button"
+                      id="eStatementYearTrigger"
+                      class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[240px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                    >
+                      <img src="img/icon/date-picker.svg" class="w-5 h-5 flex-none" alt="Tahun" />
+                      <span id="eStatementYearLabel" class="flex-1 text-left leading-tight">Pilih Tahun</span>
+                    </button>
+                    <div
+                      id="eStatementYearPanel"
+                      class="filter-panel absolute z-10 mt-2 p-2 rounded-xl border border-slate-200 bg-white shadow hidden w-[240px]"
+                      role="listbox"
+                    >
+                      <div class="flex flex-col gap-1">
+                        <button type="button" class="px-3 py-2 rounded-lg text-left text-sm hover:bg-slate-100" data-value="2023">2023</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left text-sm hover:bg-slate-100" data-value="2024">2024</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left text-sm hover:bg-slate-100" data-value="2025">2025</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="relative w-[240px]" data-e-statement-dropdown="month">
+                    <button
+                      type="button"
+                      id="eStatementMonthTrigger"
+                      class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[240px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                    >
+                      <img src="img/icon/filter.svg" class="w-5 h-5 flex-none" alt="Bulan" />
+                      <span id="eStatementMonthLabel" class="flex-1 text-left leading-tight">Pilih Bulan</span>
+                    </button>
+                    <div
+                      id="eStatementMonthPanel"
+                      class="filter-panel absolute z-10 mt-2 p-2 rounded-xl border border-slate-200 bg-white shadow hidden w-[240px]"
+                      role="listbox"
+                    >
+                      <div class="flex flex-col gap-1 text-sm">
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="01">Januari</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="02">Februari</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="03">Maret</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="04">April</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="05">Mei</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="06">Juni</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="07">Juli</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="08">Agustus</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="09">September</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="10">Oktober</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="11">November</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="12">Desember</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="eStatementAlert"
+                  class="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-700 text-sm leading-relaxed"
+                ></div>
+              </div>
+            </div>
+            <div class="sticky bottom-0 bg-white border-t border-slate-200 p-4">
+              <button
+                type="button"
+                id="eStatementDownloadBtn"
+                class="w-full h-11 rounded-xl bg-cyan-600 text-white font-semibold px-4 transition disabled:cursor-not-allowed disabled:opacity-50 hover:bg-cyan-700"
+                disabled
+              >
+                Unduh e-Statement
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="mutasiDetailOverlay" class="hidden absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-200 z-10"></div>
+
+        <div
+          id="mutasiDetailSheet"
+          class="absolute inset-x-0 bottom-0 w-full h-full bg-white rounded-t-2xl shadow-lg translate-y-full transition-transform duration-200 z-20 flex flex-col overflow-hidden"
+        >
+          <div class="relative px-4 pt-6 pb-4 border-b border-slate-200">
+            <h3 class="text-lg font-semibold text-slate-900">Detail Mutasi Rekening</h3>
+            <button
+              type="button"
+              data-mutasi-detail-close
+              class="absolute top-6 right-6 text-2xl leading-none text-slate-500 transition hover:text-slate-700"
+              aria-label="Tutup detail transaksi"
+            >&times;</button>
+          </div>
+          <div id="mutasiDetailView" class="flex-1 overflow-y-auto px-6 pb-6">
+            <div class="flex flex-col items-center text-center gap-4 py-4">
+              <div class="w-20 h-20 grid place-items-center">
+                <img src="img/illustration-1.png" alt="Detail Transaksi" class="w-20 h-20" />
+              </div>
+              <p class="text-sm font-semibold tracking-[.18em] text-slate-900 uppercase">Rincian Transaksi</p>
+            </div>
+
+            <section class="mt-4 space-y-3">
+              <p id="mutasiDetailActivity" class="text-base font-semibold text-slate-900">Transfer Saldo</p>
+            </section>
+
+            <section class="mt-4 bg-[#F2F9FF] border border-sky-200 rounded-2xl p-4 space-y-6">
+              <div class="flex items-start gap-4">
+                <div id="mutasiDetailSourceBadge" class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 grid place-items-center font-semibold text-base">O</div>
+                <div class="min-w-0 space-y-1">
+                  <p id="mutasiDetailSourceName" class="text-base font-semibold text-slate-900 leading-snug truncate">Operasional</p>
+                  <p id="mutasiDetailSourceSubtitle" class="text-sm text-slate-500 leading-snug truncate">PT ABC Indonesia</p>
+                  <p id="mutasiDetailSourceAccount" class="text-sm text-slate-500 leading-snug break-words">Amar Indonesia - 000967895483</p>
+                </div>
+              </div>
+              <div class="border-t border-sky-200"></div>
+              <div class="flex items-start gap-4">
+                <div id="mutasiDetailDestinationBadge" class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 grid place-items-center font-semibold text-base">S</div>
+                <div class="min-w-0 space-y-1">
+                  <p id="mutasiDetailDestinationName" class="text-base font-semibold text-slate-900 leading-snug truncate">Supplier Baja</p>
+                  <p id="mutasiDetailDestinationSubtitle" class="text-sm text-slate-500 leading-snug truncate">PT XYZ Indonesia</p>
+                  <p id="mutasiDetailDestinationAccount" class="text-sm text-slate-500 leading-snug break-words">BCA - 4750278562</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="mt-4">
+              <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">TOTAL TRANSAKSI</p>
+              <div class="flex items-center justify-between text-sm text-slate-600">
+                <span>Nominal</span>
+                <span id="mutasiDetailTotal" class="text-right text-slate-900 font-bold text-[18px]">Rp250.000.000</span>
+              </div>
+            </section>
+
+            <section class="mt-4 mb-4">
+              <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">DETAIL TRANSAKSI</p>
+              <dl class="space-y-4">
+                <div class="flex justify-between gap-6 text-sm text-slate-600">
+                  <dt>Metode Transfer</dt>
+                  <dd id="mutasiDetailMethod" class="text-right text-slate-900 font-medium break-words">BI Fast</dd>
+                </div>
+                <div class="flex justify-between gap-6 text-sm text-slate-600">
+                  <dt>Nomor Referensi</dt>
+                  <dd id="mutasiDetailReference" class="text-right text-slate-900 font-medium break-words">1234567890</dd>
+                </div>
+                <div class="flex justify-between gap-6 text-sm text-slate-600">
+                  <dt>Tanggal dan Waktu</dt>
+                  <dd id="mutasiDetailDate" class="text-right text-slate-900 font-medium break-words">3 Januari 2024, 20.56</dd>
+                </div>
+                <div class="flex justify-between gap-6 text-sm text-slate-600">
+                  <dt>Kategori</dt>
+                  <dd id="mutasiDetailCategory" class="text-right text-slate-900 font-medium break-words">Pemindahan Dana</dd>
+                </div>
+                <div class="flex justify-between gap-6 text-sm text-slate-600">
+                  <dt>Catatan</dt>
+                  <dd id="mutasiDetailNote" class="text-right text-slate-900 font-medium break-words">Kesalahan Transfer</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+          <div class="p-4 border-t border-slate-200 bg-white">
+            <button
+              type="button"
+              data-mutasi-detail-close
+              class="w-full rounded-xl border border-cyan-500 text-cyan-600 font-semibold py-3 hover:bg-cyan-50"
+            >
+              Tutup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="transferPane"
+      class="hidden h-full flex flex-col bg-white"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="transferPaneTitle"
+      aria-hidden="true"
+    >
+      <div class="flex-1 min-h-0">
+        <iframe
+          id="transferPaneFrame"
+          title="Transfer"
+          class="w-full h-full border-0"
+          allow="clipboard-write"
+          tabindex="-1"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="transferPopover"
+    class="hidden fixed inset-0 z-40 pointer-events-none"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="transferPopoverTitle"
+  >
+    <div
+      id="transferPopoverPanel"
+      class="absolute w-[320px] max-w-[calc(100vw-32px)] rounded-2xl border border-slate-200 bg-white shadow-2xl overflow-hidden pointer-events-auto"
+    >
+      <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+        <h3 id="transferPopoverTitle" class="text-base font-semibold text-slate-900">Transfer</h3>
+        <button
+          type="button"
+          id="transferPopoverClose"
+          class="text-slate-400 transition hover:text-slate-600"
+          aria-label="Tutup"
+        >&times;</button>
+      </div>
+      <div class="divide-y divide-slate-200">
+        <button
+          type="button"
+          class="w-full flex items-start gap-3 px-4 py-4 text-left transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+          data-transfer-option="transfer"
+        >
+          <span class="mt-0.5 text-xl text-cyan-600" aria-hidden="true">↔</span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-sm font-semibold text-cyan-600">Transfer Saldo</span>
+            <span class="mt-1 block text-xs text-slate-500 leading-snug">ke rekening bank lainnya ataupun sesama Amar Bank</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="w-full flex items-start gap-3 px-4 py-4 text-left transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+          data-transfer-option="move"
+        >
+          <span class="mt-0.5 text-xl text-cyan-600" aria-hidden="true">⇅</span>
+          <span class="flex-1 min-w-0">
+            <span class="block text-sm font-semibold text-cyan-600">Pemindahan Saldo</span>
+            <span class="mt-1 block text-xs text-slate-500 leading-snug">Antar rekening GIRO Anda yang didaftarkan di Amar Bank Bisnis</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/air-datepicker@3.4.0/air-datepicker.js"></script>
+  <script src="session.js"></script>
+  <script src="filter.js"></script>
+  <script src="data/rekening-data.js"></script>
+  <script src="data/mutasi-data.js"></script>
+  <script src="drawer.js"></script>
+  <script src="bottomsheet.js"></script>
+  <script src="mutasi.js"></script>
+  <script src="informasi-rekening.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+</html>

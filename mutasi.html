@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMBIS — Mutasi dan e-Statement</title>
+
+  <script>
+    try {
+      if (localStorage.getItem('ambis:sidebar-collapsed') === '1') {
+        document.documentElement.classList.add('sidebar-collapsed');
+      }
+    } catch {}
+  </script>
+
+  <!-- Tailwind + fonts -->
+  <script>
+    /* CDN JIT safelist: only classes toggled by local JS on this page */
+    tailwind = window.tailwind || {};
+    const modalSafelist = window.AMBIS_MODAL_SAFELIST || (window.AMBIS_MODAL_SAFELIST = [
+      'fixed','inset-0','z-[9999]','hidden','grid','place-items-center','overflow-y-auto','bg-slate-950/70','px-4','py-6','backdrop-blur-sm','sm:px-6',
+      'relative','w-full','max-w-md','overflow-hidden','rounded-2xl','bg-white','px-6','py-8','text-center','shadow-2xl','ring-1','ring-black/5','transition',
+      'mx-auto','flex','h-16','w-16','items-center','justify-center','rounded-full','bg-cyan-500','text-white','shadow-lg','shadow-cyan-500/40',
+      'text-3xl','font-bold','mt-6','space-y-3','text-xl','font-semibold','text-slate-900','text-base','text-slate-600','mt-8','inline-flex',
+      'bg-cyan-600','px-5','py-3','shadow-cyan-600/40','hover:-translate-y-px','hover:bg-cyan-500',
+      'focus-visible:outline','focus-visible:outline-2','focus-visible:outline-offset-2','focus-visible:outline-cyan-400'
+    ]);
+    tailwind.config = {
+      safelist: [
+        ...modalSafelist,
+        "opacity-0","opacity-100","translate-y-0","translate-y-1",
+        "ring-2","ring-cyan-400","bg-cyan-50","border-cyan-300",
+        "text-slate-900","text-slate-400"
+      ]
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="https://unpkg.com/air-datepicker@3.4.0/air-datepicker.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-[Mulish] bg-gray-50 text-slate-900">
+  <div class="h-screen overflow-hidden flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sb-bg sticky top-0 self-start h-screen w-[300px] text-slate-300 relative border-r border-slate-800/60 shrink-0 overflow-hidden">
+
+      <div class="px-6 pt-6 flex items-center gap-4 overflow-hidden">
+        <img
+          src="img/ambis-vertical-logo.svg"
+          alt="AMBIS"
+          class="w-14 h-14 flex-none"
+        />
+
+        <!-- text may wrap to 2 lines; hidden when sidebar collapses via .sb-label -->
+        <div class="sb-label min-w-0 pr-2">
+          <p
+            id="brandName"
+            class="text-slate-400 text-[18px] leading-tight whitespace-normal break-words"
+            data-brand-name
+          ></p>
+
+        </div>
+      </div>
+
+
+
+
+      <nav class="mt-8 px-4 pb-28">
+        <p class="px-2 text-[11px] tracking-[.18em] text-slate-400/80 mb-3">UTAMA</p>
+
+        <a href="dashboard.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/dashboard.svg" alt="">
+          <span class="sb-label text-slate-400 text-[16px]">Beranda</span>
+        </a>
+
+        <a href="informasi-rekening.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/inforekening.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Informasi Rekening</span>
+        </a>
+
+        <a href="transfer.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/transfer.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Transfer</span>
+        </a>
+
+        <a href="persetujuan-transaksi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/otorisasi.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Persetujuan Transaksi</span>
+        </a>
+
+        <a href="biller.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+            <img class="block w-6 h-6" src="img/sidebar/biller.svg" alt="">
+          <span class="sb-label text-[16px] font-medium">Beli &amp; Bayar</span>
+        </a>
+
+        <a href="mutasi.html" aria-current="page" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/mutasi-active.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Mutasi &amp; e-Statement</span>
+        </a>
+
+        <p class="px-2 mt-7 text-[11px] tracking-[.18em] text-slate-400/80 mb-3">ATUR</p>
+
+        <a href="manajemen-pengguna.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/user.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Manajemen Pengguna</span>
+        </a>
+
+        <a href="batas-transaksi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/limit.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Batas Transaksi</span>
+        </a>
+
+        <a href="atur-persetujuan.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/akses.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Atur Persetujuan</span>
+        </a>
+      </nav>
+
+      <div class="absolute left-0 right-0 bottom-0 border-t border-white/10 px-6 py-4 flex items-center justify-between">
+        <span id="collapseLabel" class="sb-label text-slate-300">Perkecil Navigasi</span>
+        <button id="navToggle" aria-expanded="true"
+                class="w-6 h-6 grid place-items-center rounded-md border border-white/15 bg-white/5 hover:bg-white/10">
+          <img id="collapseIcon" src="img/shrink.svg" alt="" class="w-4 h-4">
+        </button>
+      </div>
+    </aside>
+    <!-- ============ /SIDEBAR ============ -->
+
+    <!-- ============ MAIN ============ -->
+    <main class="flex-1 min-w-0 bg-white h-screen overflow-y-auto">
+      <div class="px-6 py-2">
+
+        <!-- Header row -->
+        <div class="flex items-center justify-between flex-wrap gap-4 mb-6 pb-2 border-b border-slate-200">
+          <div class="h-16 flex items-center gap-3">
+              <img src="img/header/mutasi.svg" alt="Beli & Bayar"/>
+              <h1 class="text-[24px] leading-none tracking-tight font-semibold">Mutasi Rekening &amp; e-Statement </h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-4 py-2 rounded-xl border text-base bg-white hover:bg-slate-50 flex items-center gap-2">
+              <!-- bell icon -->
+              <img src="img/dashboard/bantuan.svg" alt="Notifikasi" class="w-5 h-5 object-contain" />
+              <span class="text-slate-700 font-medium">Bantuan</span>
+            </button>
+            <button class="px-4 py-2 rounded-xl border text-base bg-white hover:bg-slate-50 flex items-center gap-2" data-logout-button>
+              <!-- bell icon -->
+              <img src="img/dashboard/keluar.svg" alt="Notifikasi" class="w-5 h-5 object-contain" />
+              <span class="text-slate-700 font-medium">Keluar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Subheading -->
+        <p class="text-lg mb-6">Pilih rekening untuk melihat Mutasi Rekening &amp; e-Statement</p>
+
+        <!-- Grid rekening -->
+        <div id="mutasiAccountGrid" class="grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </main>
+    <!-- ============ /MAIN ============ -->
+
+    <!-- ============ DRAWER ============ -->
+    <div id="drawer" class="h-full flex flex-col bg-white flex-shrink-0 border-l border-slate-100 relative">
+      <div class="flex flex-col h-full relative" id="mutasiDrawerInner">
+        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200">
+          <h2 id="mutasiDrawerTitle" class="text-lg font-semibold">Mutasi Rekening</h2>
+          <button id="mutasiDrawerClose" class="text-2xl leading-none text-slate-500 hover:text-slate-700">&times;</button>
+        </div>
+
+        <div class="p-4">
+          <div class="bg-slate-50 rounded-2xl p-1 flex items-center gap-2">
+            <button
+              type="button"
+              class="flex-1 rounded-xl bg-white px-4 py-3 text-center font-semibold text-slate-900 shadow-sm"
+              aria-current="true"
+              data-tab-button="mutasi"
+            >
+              Mutasi Rekening
+            </button>
+            <button
+              type="button"
+              class="flex-1 rounded-xl px-4 py-3 text-center font-semibold text-slate-400 transition hover:text-slate-600"
+              aria-current="false"
+              data-tab-button="e-statement"
+            >
+              e-Statement
+            </button>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+          <div
+            data-tab-content="mutasi"
+            class="flex-1 flex flex-col overflow-hidden"
+          >
+            <div class="px-4 pb-4">
+              <div class="flex items-start gap-3 px-4 py-3 rounded-xl border border-sky-100 bg-sky-50 text-sky-800">
+                <img class="w-6 h-6" src="img/icon/info-2.svg" alt="Informasi">
+                <p class="text-sm leading-relaxed">Dapat menampilkan periode mutasi hingga 3 tahun terakhir</p>
+              </div>
+            </div>
+
+            <div class="px-4 pb-4" data-filter-group="mutasi">
+              <div class="flex flex-wrap gap-3">
+                <div class="filter relative" data-filter="date" data-name="Rentang Tanggal" data-default="Tanggal">
+                  <button class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[200px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold">
+                    <img src="img/icon/date-picker.svg" class="w-5 h-5 flex-none" alt="Rentang Tanggal" />
+                    <span class="filter-label flex-1 text-left leading-tight">Tanggal</span>
+                  </button>
+                  <div class="filter-panel absolute z-10 mt-2 p-4 rounded-xl border border-slate-200 bg-white shadow hidden w-[360px]">
+                    <div class="flex flex-col gap-3">
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="7 Hari Terakhir" class="mt-1.5">
+                        <span class="font-medium leading-tight">7 Hari Terakhir</span>
+                      </label>
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="30 Hari Terakhir" class="mt-1.5">
+                        <span class="font-medium leading-tight">30 Hari Terakhir</span>
+                      </label>
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="1 Tahun Terakhir" class="mt-1.5">
+                        <span class="font-medium leading-tight">1 Tahun Terakhir</span>
+                      </label>
+                      <label class="flex items-start gap-3 text-sm text-slate-700">
+                        <input type="radio" name="mutasi-date" value="custom" class="mt-1.5">
+                        <span class="font-medium leading-tight">Custom Rentang Tanggal</span>
+                      </label>
+                      <div class="custom-range hidden">
+                        <div class="grid grid-cols-2 gap-3">
+                          <label class="flex flex-col gap-2">
+                            <span class="text-sm font-semibold text-slate-900">Tanggal Awal</span>
+                            <div class="relative">
+                              <img
+                                src="img/icon/date-picker.svg"
+                                alt=""
+                                class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                              >
+                              <input
+                                type="text"
+                                class="h-11 w-full rounded-lg border border-slate-300 bg-white pl-10 pr-3 text-sm text-slate-700 placeholder-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                                placeholder="DD/MM/YYYY"
+                                data-date-start
+                                readonly
+                              />
+                            </div>
+                          </label>
+                          <label class="flex flex-col gap-2">
+                            <span class="text-sm font-semibold text-slate-900">Tanggal Akhir</span>
+                            <div class="relative">
+                              <img
+                                src="img/icon/date-picker.svg"
+                                alt=""
+                                class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                              >
+                              <input
+                                type="text"
+                                class="h-11 w-full rounded-lg border border-slate-300 bg-white pl-10 pr-3 text-sm text-slate-700 placeholder-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                                placeholder="DD/MM/YYYY"
+                                data-date-end
+                                readonly
+                              />
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex justify-end gap-2 mt-4">
+                      <button class="cancel px-3 py-2 rounded-lg border text-slate-600 w-1/2">Batalkan</button>
+                      <button class="apply px-3 py-2 rounded-lg bg-cyan-600 text-white disabled:opacity-50 w-1/2" disabled>Terapkan</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="filter relative" data-filter="type" data-name="Jenis Transaksi" data-default="Jenis Transaksi">
+                  <button class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[200px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold">
+                    <img src="img/icon/filter.svg" class="w-5 h-5 flex-none" alt="Jenis Transaksi" />
+                    <span class="filter-label flex-1 text-left leading-tight">Jenis Transaksi</span>
+                  </button>
+                  <div class="filter-panel absolute z-10 mt-2 p-4 rounded-xl border border-slate-200 bg-white shadow hidden w-[280px]">
+                    <div class="flex flex-col gap-3">
+                      <label class="flex items-center gap-2">
+                        <input type="checkbox" value="Masuk">
+                        <span>Masuk</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input type="checkbox" value="Keluar">
+                        <span>Keluar</span>
+                      </label>
+                    </div>
+                    <div class="flex justify-end gap-2 mt-4">
+                      <button class="cancel px-3 py-2 rounded-lg border text-slate-600 w-1/2">Batalkan</button>
+                      <button class="apply px-3 py-2 rounded-lg bg-cyan-600 text-white disabled:opacity-50 w-1/2" disabled>Terapkan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto" id="mutasiDrawerContent">
+              <div id="mutasiLoading" class="h-full flex items-center justify-center">
+                <div class="flex flex-col items-center gap-3 text-slate-500">
+                  <span class="w-10 h-10 border-4 border-cyan-200 border-t-cyan-600 rounded-full animate-spin"></span>
+                  <span>Memuat data mutasi...</span>
+                </div>
+              </div>
+
+              <div id="mutasiError" class="hidden px-6 py-8 space-y-4">
+                <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700">Gagal memuat data, coba lagi</div>
+                <button id="mutasiRetry" class="px-4 py-3 rounded-xl border border-cyan-500 text-cyan-600 hover:bg-cyan-50 w-full">Muat Ulang</button>
+              </div>
+
+              <div id="mutasiEmpty" class="hidden px-16 py-12 flex flex-col items-center text-center gap-4 text-slate-500">
+                <img class="w-32 h-6" src="img/illustration-2.svg" alt="Informasi">
+                <div>
+                  <p class="font-semibold text-slate-700">Belum ada transaksi di periode ini</p>
+                  <p class="text-sm">Atur ulang filter atau tanggal untuk menemukan transaksi lain.</p>
+                </div>
+              </div>
+
+              <div id="mutasiSuccess" class="hidden px-6 pb-10 space-y-6">
+                <div id="mutasiTransactionList" class="space-y-8"></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            data-tab-content="e-statement"
+            class="hidden flex-1 flex flex-col overflow-hidden"
+          >
+            <div class="flex-1 overflow-y-auto px-4 pb-24">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-start gap-3 px-4 py-3 rounded-xl border border-sky-100 bg-sky-50 text-sky-800">
+                  <img class="w-6 h-6" src="img/icon/info-2.svg" alt="Informasi">
+                  <p class="text-sm leading-relaxed">
+                    Unduh e-Statement rekening dalam format PDF berdasarkan periode yang Anda pilih.
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                  <div class="relative w-[240px]" data-e-statement-dropdown="year">
+                    <button
+                      type="button"
+                      id="eStatementYearTrigger"
+                      class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[240px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                    >
+                      <img src="img/icon/date-picker.svg" class="w-5 h-5 flex-none" alt="Tahun" />
+                      <span id="eStatementYearLabel" class="flex-1 text-left leading-tight">Pilih Tahun</span>
+                    </button>
+                    <div
+                      id="eStatementYearPanel"
+                      class="filter-panel absolute z-10 mt-2 p-2 rounded-xl border border-slate-200 bg-white shadow hidden w-[240px]"
+                      role="listbox"
+                    >
+                      <div class="flex flex-col gap-1">
+                        <button type="button" class="px-3 py-2 rounded-lg text-left text-sm hover:bg-slate-100" data-value="2023">2023</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left text-sm hover:bg-slate-100" data-value="2024">2024</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left text-sm hover:bg-slate-100" data-value="2025">2025</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="relative w-[240px]" data-e-statement-dropdown="month">
+                    <button
+                      type="button"
+                      id="eStatementMonthTrigger"
+                      class="filter-trigger h-11 px-4 rounded-xl border flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0 active:bg-cyan-100 active:border-cyan-400 min-w-[200px] w-[240px] border-slate-300 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                    >
+                      <img src="img/icon/filter.svg" class="w-5 h-5 flex-none" alt="Bulan" />
+                      <span id="eStatementMonthLabel" class="flex-1 text-left leading-tight">Pilih Bulan</span>
+                    </button>
+                    <div
+                      id="eStatementMonthPanel"
+                      class="filter-panel absolute z-10 mt-2 p-2 rounded-xl border border-slate-200 bg-white shadow hidden w-[240px]"
+                      role="listbox"
+                    >
+                      <div class="flex flex-col gap-1 text-sm">
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="01">Januari</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="02">Februari</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="03">Maret</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="04">April</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="05">Mei</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="06">Juni</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="07">Juli</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="08">Agustus</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="09">September</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="10">Oktober</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="11">November</button>
+                        <button type="button" class="px-3 py-2 rounded-lg text-left hover:bg-slate-100" data-value="12">Desember</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="eStatementAlert"
+                  class="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-700 text-sm leading-relaxed"
+                ></div>
+              </div>
+            </div>
+            <div class="sticky bottom-0 bg-white border-t border-slate-200 p-4">
+              <button
+                type="button"
+                id="eStatementDownloadBtn"
+                class="w-full h-11 rounded-xl bg-cyan-600 text-white font-semibold px-4 transition disabled:cursor-not-allowed disabled:opacity-50 hover:bg-cyan-700"
+                disabled
+              >
+                Unduh e-Statement
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="mutasiDetailOverlay" class="hidden absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-200 z-10"></div>
+
+      <div
+        id="mutasiDetailSheet"
+        class="absolute inset-x-0 bottom-0 w-full h-full bg-white rounded-t-2xl shadow-lg translate-y-full transition-transform duration-200 z-20 flex flex-col overflow-hidden"
+      >
+        <div class="relative px-4 pt-6 pb-4 border-b border-slate-200">
+          <h3 class="text-lg font-semibold text-slate-900">Detail Mutasi Rekening</h3>
+          <button
+            type="button"
+            data-mutasi-detail-close
+            class="absolute top-6 right-6 text-2xl leading-none text-slate-500 transition hover:text-slate-700"
+            aria-label="Tutup detail transaksi"
+          >&times;</button>
+        </div>
+        <div id="mutasiDetailView" class="flex-1 overflow-y-auto px-6 pb-6">
+          <div class="flex flex-col items-center text-center gap-4 py-4">
+            <div class="w-20 h-20 grid place-items-center">
+              <img src="img/illustration-1.png" alt="Detail Transaksi" class="w-20 h-20" />
+            </div>
+            <p class="text-sm font-semibold tracking-[.18em] text-slate-900 uppercase">Rincian Transaksi</p>
+          </div>
+
+          <section class="mt-4 space-y-3">
+            <p id="mutasiDetailActivity" class="text-base font-semibold text-slate-900">Transfer Saldo</p>
+          </section>
+
+          <section class="mt-4 bg-[#F2F9FF] border border-sky-200 rounded-2xl p-4 space-y-6">
+            <div class="flex items-start gap-4">
+              <div id="mutasiDetailSourceBadge" class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 grid place-items-center font-semibold text-base">O</div>
+              <div class="min-w-0 space-y-1">
+                <p id="mutasiDetailSourceName" class="text-base font-semibold text-slate-900 leading-snug truncate">Operasional</p>
+                <p id="mutasiDetailSourceSubtitle" class="text-sm text-slate-500 leading-snug truncate">PT ABC Indonesia</p>
+                <p id="mutasiDetailSourceAccount" class="text-sm text-slate-500 leading-snug break-words">Amar Indonesia - 000967895483</p>
+              </div>
+            </div>
+            <div class="border-t border-sky-200"></div>
+            <div class="flex items-start gap-4">
+              <div id="mutasiDetailDestinationBadge" class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 grid place-items-center font-semibold text-base">S</div>
+              <div class="min-w-0 space-y-1">
+                <p id="mutasiDetailDestinationName" class="text-base font-semibold text-slate-900 leading-snug truncate">Supplier Baja</p>
+                <p id="mutasiDetailDestinationSubtitle" class="text-sm text-slate-500 leading-snug truncate">PT XYZ Indonesia</p>
+                <p id="mutasiDetailDestinationAccount" class="text-sm text-slate-500 leading-snug break-words">BCA - 4750278562</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mt-4">
+            <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">TOTAL TRANSAKSI</p>
+            <div class="flex items-center justify-between text-sm text-slate-600">
+              <span>Nominal</span>
+              <span id="mutasiDetailTotal" class="text-right text-slate-900 font-bold text-[18px]">Rp250.000.000</span>
+            </div>
+          </section>
+
+          <section class="mt-4 mb-4">
+            <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">DETAIL TRANSAKSI</p>
+            <dl class="space-y-4">
+              <div class="flex justify-between gap-6 text-sm text-slate-600">
+                <dt>Metode Transfer</dt>
+                <dd id="mutasiDetailMethod" class="text-right text-slate-900 font-medium break-words">BI Fast</dd>
+              </div>
+              <div class="flex justify-between gap-6 text-sm text-slate-600">
+                <dt>Nomor Referensi</dt>
+                <dd id="mutasiDetailReference" class="text-right text-slate-900 font-medium break-words">1234567890</dd>
+              </div>
+              <div class="flex justify-between gap-6 text-sm text-slate-600">
+                <dt>Tanggal dan Waktu</dt>
+                <dd id="mutasiDetailDate" class="text-right text-slate-900 font-medium break-words">3 Januari 2024, 20.56</dd>
+              </div>
+              <div class="flex justify-between gap-6 text-sm text-slate-600">
+                <dt>Kategori</dt>
+                <dd id="mutasiDetailCategory" class="text-right text-slate-900 font-medium break-words">Pemindahan Dana</dd>
+              </div>
+              <div class="flex justify-between gap-6 text-sm text-slate-600">
+                <dt>Catatan</dt>
+                <dd id="mutasiDetailNote" class="text-right text-slate-900 font-medium break-words">Kesalahan Transfer</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+        <div class="p-4 border-t border-slate-200 bg-white">
+          <button
+            type="button"
+            data-mutasi-detail-close
+            class="w-full rounded-xl border border-cyan-500 text-cyan-600 font-semibold py-3 hover:bg-cyan-50"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- ============ /DRAWER ============ -->
+  </div>
+
+
+  <script src="https://unpkg.com/air-datepicker@3.4.0/air-datepicker.js"></script>
+  <script src="session.js"></script>
+  <script src="filter.js"></script>
+  <script src="data/rekening-data.js"></script>
+  <script src="data/mutasi-data.js"></script>
+  <script src="drawer.js"></script>
+  <script src="bottomsheet.js"></script>
+  <script src="mutasi.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+</html>

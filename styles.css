@@ -1,0 +1,194 @@
+/* Sidebar default background */
+.sb-bg{
+  background-color:#232D34;
+}
+.sb-item[aria-current="page"]{padding-left:.75rem;}
+.sb-item[aria-current="page"] .sb-label{color:#fff;font-weight:600;}
+.sb-item:focus,
+.sb-item:hover{
+  outline:none;
+  border-color:transparent !important;
+  background-color:#000000 !important;
+  box-shadow:0 0 0 4px rgba(0,0,0,.2);
+}
+
+/* keep rows steady */
+.sb-item{ height:48px; min-height:48px; align-items:center; position:relative; }
+.sb-item img{ display:block; } /* no baseline jitter */
+
+/* Approval tables shared layout */
+.approval-table{
+  --approval-table-columns:minmax(0,1fr) minmax(0,1fr);
+}
+.approval-table--with-action{
+  --approval-table-columns:minmax(0,1.5fr) minmax(0,1fr) auto;
+}
+.approval-table--two-columns{
+  --approval-table-columns:minmax(0,1.35fr) minmax(0,1fr);
+}
+.approval-table-row{
+  display:grid;
+  grid-template-columns:var(--approval-table-columns);
+}
+
+/* collapse behavior */
+#sidebar{ transition: width .25s ease; overflow:visible; }
+#sidebar.collapsed,
+.sidebar-collapsed #sidebar{ width:84px !important; }
+
+/* keep labels in flow but don't animate width */
+.sb-label{
+  display:inline-block; white-space:nowrap;
+  transition: opacity .15s ease, margin .15s ease; /* no width transition */
+}
+#sidebar.collapsed .sb-label,
+.sidebar-collapsed #sidebar .sb-label{
+  opacity:0; width:0; margin-left:0; overflow:hidden; display:none;
+}
+
+/* hide category headings when sidebar is collapsed */
+#sidebar.collapsed nav > p,
+.sidebar-collapsed #sidebar nav > p{
+  display:none;
+}
+
+/* center items when collapsed */
+#sidebar.collapsed .sb-item,
+.sidebar-collapsed #sidebar .sb-item{ justify-content:center; padding-left:0; padding-right:0; gap:.5rem; }
+
+/* Tooltip helper when sidebar is collapsed */
+#sidebar.collapsed .sb-item:hover::after,
+.sidebar-collapsed #sidebar .sb-item:hover::after{
+  content: attr(data-label);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left:8px;
+  background-color:#000;
+  color:#fff;
+  padding:4px 8px;
+  border-radius:6px;
+  white-space:nowrap;
+  pointer-events:none;
+  z-index:999999;
+}
+
+/* Drawer panel that pushes main content instead of overlaying */
+#drawer,
+#successDrawer{
+  --drawer-max-width:600px;
+  width:0;
+  max-width:var(--drawer-max-width);
+  overflow:hidden;
+  transition:width .3s ease;
+  border-left-width:0;
+}
+#drawer.open,
+#successDrawer.open{
+  width:100%;
+  border-left-width:24px;
+}
+
+#drawer #mutasiDetailSheet{
+  width:100%;
+  max-width:var(--drawer-max-width);
+  left:auto;
+  right:0;
+}
+
+.drawer-accordion-trigger .drawer-accordion-chevron{
+  transition:transform .2s ease;
+}
+
+.drawer-accordion-content{
+  overflow:hidden;
+  transition:max-height .25s ease, opacity .2s ease;
+}
+
+.drawer-accordion-content[data-expanded="false"]{
+  max-height:0;
+  opacity:0;
+  pointer-events:none;
+}
+
+.drawer-accordion-content[data-expanded="true"]{
+  max-height:600px;
+  opacity:1;
+}
+
+/* Disabled button appearance */
+button:disabled{
+  background-color:#f5f5f5 !important;
+  color:#9ca3af !important;
+  border-color:transparent !important;
+  cursor:not-allowed;
+  opacity:1 !important;
+}
+
+/* Ensure minimum readable font size */
+html, body{
+  font-size:16px;
+}
+
+.text-xs,
+.text-sm,
+.text-\[11px\],
+.text-\[12px\],
+.text-\[13px\],
+.text-\[14px\],
+.text-\[15px\]{
+  font-size:16px !important;
+}
+
+.transfer-embedded,
+.transfer-embedded body{
+  height:100%;
+}
+
+.transfer-embedded body{
+  overflow:hidden;
+}
+
+.transfer-embedded body > .h-screen{
+  overflow:visible;
+}
+
+.transfer-embedded #sidebar,
+.transfer-embedded main{
+  display:none !important;
+}
+
+.transfer-embedded #drawer{
+  width:100% !important;
+  border-left-width:0 !important;
+  box-shadow:none;
+}
+
+.transfer-embedded #drawer.open{
+  width:100% !important;
+}
+
+/* Date filter option highlighting */
+.filter-panel label.filter-date-option{
+  padding:8px 12px;
+  border-radius:12px;
+  transition:background-color .2s ease, color .2s ease;
+}
+.filter-panel label.filter-date-option-active{
+  background-color:#E6F5F7;
+  color:#0E7490;
+  font-weight:600;
+}
+.filter-panel label.filter-date-option-active span{
+  color:inherit;
+}
+.filter-panel label.filter-date-option-active input[type="radio"]{
+  accent-color:#0E7490;
+}
+
+.is-user-mgmt-blocked{
+  pointer-events:none;
+  user-select:none;
+  filter:blur(1.5px);
+}

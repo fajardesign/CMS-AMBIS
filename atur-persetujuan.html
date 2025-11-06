@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMBIS — Atur Persetujuan</title>
+
+  <script>
+    try {
+      if (localStorage.getItem('ambis:sidebar-collapsed') === '1') {
+        document.documentElement.classList.add('sidebar-collapsed');
+      }
+    } catch {}
+  </script>
+
+  <!-- Tailwind + fonts -->
+  <script>
+    /* CDN JIT safelist: only classes toggled by local JS on this page */
+    tailwind = window.tailwind || {};
+    const modalSafelist = window.AMBIS_MODAL_SAFELIST || (window.AMBIS_MODAL_SAFELIST = [
+      'fixed','inset-0','z-[9999]','hidden','grid','place-items-center','overflow-y-auto','bg-slate-950/70','px-4','py-6','backdrop-blur-sm','sm:px-6',
+      'relative','w-full','max-w-md','overflow-hidden','rounded-2xl','bg-white','px-6','py-8','text-center','shadow-2xl','ring-1','ring-black/5','transition',
+      'mx-auto','flex','h-16','w-16','items-center','justify-center','rounded-full','bg-cyan-500','text-white','shadow-lg','shadow-cyan-500/40',
+      'text-3xl','font-bold','mt-6','space-y-3','text-xl','font-semibold','text-slate-900','text-base','text-slate-600','mt-8','inline-flex',
+      'bg-cyan-600','px-5','py-3','shadow-cyan-600/40','hover:-translate-y-px','hover:bg-cyan-500',
+      'focus-visible:outline','focus-visible:outline-2','focus-visible:outline-offset-2','focus-visible:outline-cyan-400'
+    ]);
+    tailwind.config = {
+      safelist: [
+        ...modalSafelist,
+        "opacity-0","opacity-100","translate-y-0","translate-y-1",
+        "ring-2","ring-cyan-400","bg-cyan-50","border-cyan-300",
+        "text-slate-900","text-slate-400"
+      ]
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-[Mulish] bg-gray-50 text-slate-900">
+  <div class="h-screen overflow-hidden flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sb-bg sticky top-0 self-start h-screen w-[300px] text-slate-300 relative border-r border-slate-800/60 shrink-0 overflow-hidden">
+
+      <div class="px-6 pt-6 flex items-center gap-4 overflow-hidden">
+        <img
+          src="img/ambis-vertical-logo.svg"
+          alt="AMBIS"
+          class="w-14 h-14 flex-none"
+        />
+
+        <!-- text may wrap to 2 lines; hidden when sidebar collapses via .sb-label -->
+        <div class="sb-label min-w-0 pr-2">
+          <p
+            id="brandName"
+            class="text-slate-400 text-[18px] leading-tight whitespace-normal break-words"
+            data-brand-name
+          ></p>
+
+        </div>
+      </div>
+
+
+
+
+      <nav class="mt-8 px-4 pb-28">
+        <p class="px-2 text-[11px] tracking-[.18em] text-slate-400/80 mb-3">UTAMA</p>
+
+        <a href="dashboard.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/dashboard.svg" alt="">
+          <span class="sb-label text-slate-400 text-[16px]">Beranda</span>
+        </a>
+
+        <a href="informasi-rekening.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/inforekening.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Informasi Rekening</span>
+        </a>
+
+        <a href="transfer.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/transfer.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Transfer</span>
+        </a>
+
+        <a href="persetujuan-transaksi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/otorisasi.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Persetujuan Transaksi</span>
+        </a>
+
+        <a href="biller.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+            <img class="block w-6 h-6" src="img/sidebar/biller.svg" alt="">
+          <span class="sb-label text-[16px] font-medium">Beli &amp; Bayar</span>
+        </a>
+
+        <a href="mutasi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/mutasi.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Mutasi &amp; e-Statement</span>
+        </a>
+
+        <p class="px-2 mt-7 text-[11px] tracking-[.18em] text-slate-400/80 mb-3">ATUR</p>
+
+        <a href="manajemen-pengguna.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/user.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Manajemen Pengguna</span>
+        </a>
+
+        <a href="batas-transaksi.html" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/limit.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Batas Transaksi</span>
+        </a>
+
+        <a href="atur-persetujuan.html" aria-current="page" class="sb-item group flex items-center gap-3 px-3 py-3 rounded-xl border border-transparent hover:border-slate-700/60 hover:bg-white/[.03] transition">
+          <img class="w-6 h-6" src="img/sidebar/akses-active.svg" alt="">
+          <span class="sb-label sb-text text-[16px]">Atur Persetujuan</span>
+        </a>
+      </nav>
+
+      <div class="absolute left-0 right-0 bottom-0 border-t border-white/10 px-6 py-4 flex items-center justify-between">
+        <span id="collapseLabel" class="sb-label text-slate-300">Perkecil Navigasi</span>
+        <button id="navToggle" aria-expanded="true"
+                class="w-6 h-6 grid place-items-center rounded-md border border-white/15 bg-white/5 hover:bg-white/10">
+          <img id="collapseIcon" src="img/shrink.svg" alt="" class="w-4 h-4">
+        </button>
+      </div>
+    </aside>
+    <!-- ============ /SIDEBAR ============ -->
+
+    <!-- ============ MAIN ============ -->
+    <main class="flex-1 min-w-0 bg-white h-screen overflow-y-auto">
+      <div class="px-6 py-2">
+    <!-- ============ HEADER ============ -->
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-6 pb-2 border-b border-slate-200">
+          <div class="h-16 flex items-center gap-3">
+              <img src="img/header/atur-persetujuan.svg" alt="Beli & Bayar"/>
+              <h1 class="text-[24px] leading-none tracking-tight font-semibold">Atur Persetujuan</h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-4 py-2 rounded-xl border text-base bg-white hover:bg-slate-50 flex items-center gap-2">
+              <!-- bell icon -->
+              <img src="img/dashboard/bantuan.svg" alt="Notifikasi" class="w-5 h-5 object-contain" />
+              <span class="text-slate-700 font-medium">Bantuan</span>
+            </button>
+            <button class="px-4 py-2 rounded-xl border text-base bg-white hover:bg-slate-50 flex items-center gap-2" data-logout-button>
+              <!-- bell icon -->
+              <img src="img/dashboard/keluar.svg" alt="Notifikasi" class="w-5 h-5 object-contain" />
+              <span class="text-slate-700 font-medium">Keluar</span>
+            </button>
+          </div>
+        </div>
+        <!-- ============ HEADER ============ -->
+
+        <!-- Subheader -->
+        <div class="mb-6">
+          <h2 class="font-semibold text-lg">Persetujuan Transaksi</h2>
+          <p class="text-slate-600  ">Atur berapa orang yang harus menyetujui transaksi di perusahaan Anda.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-slate-200 mb-6">
+          <button class="relative px-4 py-2 font-medium text-slate-900">
+            Transfer
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-cyan-500"></span>
+          </button>
+          <button class="px-4 py-2 text-slate-600 hover:text-slate-900">Beli &amp; Bayar</button>
+        </div>
+
+        <!-- Persetujuan Transfer Table -->
+        <section class="space-y-4">
+          <div class="flex items-center justify-between gap-3">
+          </div>
+
+          <div class="approval-table approval-table--with-action rounded-2xl border border-slate-200 bg-white overflow-hidden">
+            <div class="approval-table-row items-center gap-4 bg-[#F8F8F8] px-6 py-3 text-sm font-semibold text-slate-700">
+              <span class="text-left">Nominal Transaksi</span>
+              <span class="text-left">Jumlah Persetujuan</span>
+              <span class="text-right"></span>
+            </div>
+            <div id="approvalRowsContainer" class="divide-y divide-slate-100"></div>
+            <div
+              id="approvalEmptyState"
+              class="hidden px-6 py-10 text-center text-sm text-slate-500"
+            >
+              Belum ada persetujuan transfer.
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+    <!-- ============ /MAIN ============ -->
+    
+    <!-- Drawer -->
+    <div id="drawer" class="relative h-full flex flex-col bg-white flex-shrink-0 border-l border-slate-100" aria-hidden="true">
+      <div id="approvalPane" class="h-full flex flex-col">
+        <div class="flex items-center justify-between px-6 py-4 border-b">
+          <h2 id="approvalDrawerTitle" class="text-lg font-semibold">Ubah Persetujuan Transfer</h2>
+          <button id="approvalDrawerClose" type="button" class="text-2xl leading-none">&times;</button>
+        </div>
+        <div class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl border border-sky-100 bg-sky-50 text-sky-800">
+            <img class="w-6 h-6" src="img/icon/info-2.svg" alt="Informasi">
+            <p class="text-sm leading-relaxed">
+              Buat aturan persetujuan sesuai nominal transaksi, atau tetapkan langsung untuk limit harian
+              <span id="dailyMaxLimitValue" class="font-semibold">Rp200.000.000</span>.
+            </p>
+          </div>
+
+          <div id="approvalMatrixSection" class="hidden space-y-4">
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Daftar Approval Matrix</h3>
+            <div id="approvalMatrixList" class="space-y-3"></div>
+          </div>
+
+          <div id="approvalFormFields" class="space-y-6">
+            <div class="grid gap-4 md:grid-cols-2">
+              <div>
+                <label for="minLimitInput" class="block mb-2 font-medium text-slate-700">Batas Minimal</label>
+                <input
+                  id="minLimitInput"
+                  type="text"
+                  inputmode="numeric"
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  placeholder="Rp 1"
+                />
+                <p id="minLimitError" class="mt-2 text-sm text-red-500 hidden"></p>
+              </div>
+              <div>
+                <label for="maxLimitInput" class="block mb-2 font-medium text-slate-700">Batas Maksimal</label>
+                <div class="relative">
+                  <input
+                    id="maxLimitInput"
+                    type="text"
+                    inputmode="numeric"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    placeholder="Rp Maks. 500.000.000"
+                  />
+                </div>
+                <p id="maxLimitError" class="mt-2 text-sm text-red-500 hidden"></p>
+              </div>
+            </div>
+
+            <div>
+              <label for="approverCountInput" class="block mb-2 font-medium text-slate-700">Jumlah Penyetuju</label>
+              <input
+                id="approverCountInput"
+                type="text"
+                inputmode="numeric"
+                class="w-full rounded-xl border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                placeholder="Minimal 1 penyetuju"
+              />
+              <div class="mt-2 space-y-1">
+                <p class="flex items-start gap-2 text-sm text-slate-500">
+                  <span aria-hidden="true" class="mt-[3px] inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 text-[12px] font-semibold text-slate-500">i</span>
+                  <span>Jumlah penyetuju harus sesuai dengan yang tersedia di perusahaan Anda.</span>
+                </p>
+                <p id="approverCountError" class="text-sm text-red-500 hidden"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-slate-200">
+            <button id="saveChangesBtn" type="button" class="w-full rounded-xl border border-cyan-500 text-cyan-600 font-semibold py-3 hover:bg-cyan-50" disabled>
+              Simpan Perubahan
+            </button>
+          </div>
+        </div>
+        <div class="border-t px-6 py-5 bg-white">
+          <button id="confirmApprovalBtn" type="button" class="w-full rounded-xl bg-cyan-500 text-white font-semibold py-3" disabled>
+            Konfirmasi Persetujuan Transfer
+          </button>
+        </div>
+        <div class="pointer-events-none absolute inset-0 flex flex-col">
+          <div
+            id="approvalConfirmOverlay"
+            class="hidden absolute inset-0 bg-slate-900/30 opacity-0 transition-opacity duration-200 z-40 pointer-events-auto"
+          ></div>
+          <div
+            id="approvalConfirmSheet"
+            class="absolute inset-x-0 bottom-0 z-50 h-full bg-white rounded-t-3xl shadow-2xl translate-y-full transition-transform duration-300 flex flex-col pointer-events-auto"
+          >
+            <div class="sticky top-0 px-6 py-5 text-center border-b border-slate-200 bg-white rounded-t-3xl">
+              <h3 class="text-base font-semibold">Konfirmasi Ubah Persetujuan Transfer</h3>
+            </div>
+            <div class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+              <div class="flex items-center gap-3 px-4 py-3 rounded-xl border border-amber-200 bg-amber-50 text-amber-800">
+                <span aria-hidden="true" class="text-xl leading-none">⚠️</span>
+                <p class="text-sm leading-relaxed">
+                  Pastikan kombinasi limit transaksi dan jumlah penyetuju yang Anda tetapkan sudah sesuai demi keamanan perusahaan.
+                </p>
+              </div>
+
+              <section class="space-y-4">
+                <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">DAFTAR PERSETUJUAN TRANSFER</p>
+                <div class="approval-table approval-table--two-columns rounded-2xl border border-slate-200 overflow-hidden p-4">
+                  <div class="approval-table-row items-center gap-4 bg-slate-50 px-4 py-3 text-xs font-semibold tracking-[.12em] text-slate-500">
+                    <span class="text-left">Nominal Transaksi</span>
+                    <span class="text-right">Jumlah Persetujuan</span>
+                  </div>
+                  <div id="approvalConfirmList" class="divide-y divide-slate-100"></div>
+                </div>
+              </section>
+            </div>
+            <div id="approvalConfirmOtpSection" class="hidden border-t border-slate-200 px-6 py-6 space-y-4">
+              <div class="space-y-2 text-center">
+                <h4 class="text-lg font-semibold text-slate-900">Masukkan kode verifikasi</h4>
+                <p class="text-sm text-slate-600">
+                  Silakan buka aplikasi Amar Bank Bisnis pada ponsel Anda untuk mendapatkan kode verifikasi.
+                </p>
+              </div>
+              <div class="grid grid-cols-8 gap-2">
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+                <input type="text" inputmode="numeric" maxlength="1" class="otp-input w-full h-14 rounded-xl border text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+              </div>
+              <p id="approvalConfirmOtpError" class="hidden text-center text-sm text-rose-600"></p>
+              <p id="approvalConfirmOtpCountdown" class="text-sm text-slate-500 text-center">
+                <span id="approvalConfirmOtpCountdownMessage">Sesi akan berakhir dalam</span>
+                <span id="approvalConfirmOtpTimer" class="text-cyan-500 font-semibold">00:30</span>
+              </p>
+              <button
+                id="approvalConfirmOtpResend"
+                type="button"
+                class="hidden mx-auto rounded-lg border border-cyan-300 px-4 py-2 text-sm font-medium text-cyan-500 hover:bg-slate-50"
+              >
+                Kirim Ulang Kode Verifikasi
+              </button>
+            </div>
+            <div class="sticky bottom-0 border-t border-slate-200 bg-white px-6 py-5">
+              <div class="flex items-center gap-3">
+                <button
+                  id="approvalConfirmBack"
+                  type="button"
+                  class="flex-1 rounded-xl border border-slate-200 py-3 font-semibold text-slate-700 transition hover:bg-slate-50"
+                >
+                  Kembali
+                </button>
+                <button
+                  id="approvalConfirmProceed"
+                  type="button"
+                  class="flex-1 rounded-xl bg-cyan-500 text-white py-3 font-semibold transition hover:bg-cyan-600"
+                >
+                  Lanjut Ubah Persetujuan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="approvalPendingPane" class="hidden h-full flex flex-col">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+          <h2 class="text-lg font-semibold text-slate-900">Ubah Persetujuan Transfer</h2>
+          <button id="approvalPendingClose" type="button" class="text-2xl leading-none text-slate-500 hover:text-slate-700">&times;</button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4">
+          <div class="max-w-xl mx-auto space-y-4">
+            <div class="space-y-4 text-center">
+              <img src="img/illustration-2.svg" alt="Menunggu persetujuan" class="mx-auto w-20 py-4 h-auto" />
+              <h3 class="text-xl font-semibold text-slate-900">Menunggu Persetujuan Admin Lain</h3>
+            </div>
+
+            <section class="space-y-4">
+              <p class="font-semibold text-slate-500 uppercase tracking-[.18em] mb-4 bg-slate-100 p-2">DAFTAR PERSETUJUAN TRANSFER</p>
+              <div class="approval-table approval-table--two-columns rounded-2xl border border-slate-200 overflow-hidden p-4">
+                <div class="approval-table-row items-center gap-4 bg-slate-50 px-5 py-3 text-[13px] font-semibold tracking-[.16em] text-slate-500">
+                  <span class="text-left">Nominal Transaksi</span>
+                  <span class="text-right">Jumlah Persetujuan</span>
+                </div>
+                <div id="approvalPendingList" class="divide-y divide-slate-100"></div>
+              </div>
+            </section>
+
+            <div class="flex items-start gap-3 px-4 py-4 rounded-xl border border-amber-200 bg-amber-50 text-left">
+              <span class="inline-flex h-10 w-10 flex-none items-center justify-center rounded-full bg-amber-100 text-xl leading-none text-amber-500">!</span>
+              <p class="text-sm font-medium text-amber-800">
+                Proses ini selesai diajukan. Sekarang Anda perlu menunggu persetujuan dari admin lain.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="sticky bottom-0 border-t border-slate-200 bg-white px-6 py-5">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <button
+              id="approvalPendingDismiss"
+              type="button"
+              class="rounded-xl border border-cyan-500 bg-white px-4 py-3 font-semibold text-slate-900 transition hover:bg-cyan-50 sm:flex-1"
+            >
+              Tutup
+            </button>
+            <button
+              id="approvalPendingViewProcess"
+              type="button"
+              class="rounded-xl bg-cyan-500 px-4 py-3 font-semibold text-white transition hover:bg-cyan-600 sm:ml-auto sm:flex-1"
+            >
+              Lihat Proses Persetujuan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div
+    id="topApprovalDialogContainer"
+    class="hidden fixed inset-0 z-40"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="topApprovalDialogTitle"
+  >
+    <div id="topApprovalDialogOverlay" class="absolute inset-0 bg-slate-900/40"></div>
+    <div class="relative flex h-full items-center justify-center px-4">
+      <div id="topApprovalDialog" class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl text-center">
+        <div class="space-y-2">
+          <h3 id="topApprovalDialogTitle" class="text-lg font-semibold text-slate-900">Ubah Persetujuan Teratas?</h3>
+          <p class="text-sm text-slate-600">
+            Jika Anda mengubah penyetuju di urutan teratas, urutan dan rentang persetujuan harus diatur ulang dari awal.
+          </p>
+        </div>
+        <div class="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button id="topApprovalDialogCancel" type="button" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 transition hover:bg-slate-50">
+            Batalkan
+          </button>
+          <button id="topApprovalDialogProceed" type="button" class="w-full rounded-xl bg-cyan-500 px-4 py-2 font-semibold text-white transition hover:bg-cyan-600">
+            Ubah Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="session.js"></script>
+  <script src="sidebar.js"></script>
+  <script src="drawer.js"></script>
+  <script src="bottomsheet.js"></script>
+  <script src="atur-persetujuan.js"></script>
+</body>
+</html>
