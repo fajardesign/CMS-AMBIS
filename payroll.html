@@ -152,75 +152,77 @@
           </div>
         </div>
 
-        <section class="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <section class="space-y-6">
           <article class="rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-4">
-            <header class="space-y-2">
-              <p class="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-3 py-1 text-sm font-semibold text-cyan-600">
+            <div class="flex flex-wrap items-center gap-3">
+              <p class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-600">
                 <img src="img/sidebar/payroll-active.svg" alt="" class="w-4 h-4">
-                Payroll aktif
+                Payroll Active
               </p>
+            </div>
+            <header class="space-y-2">
               <h2 class="text-[20px] font-semibold text-slate-900">Kelola penggajian lebih mudah</h2>
               <p class="text-slate-600">Susun jadwal pembayaran gaji, atur benefit, dan pantau status payroll dalam satu dashboard terintegrasi.</p>
             </header>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div class="rounded-2xl border border-slate-200/70 bg-slate-50 px-4 py-5">
-                <p class="text-sm font-semibold text-slate-500">Periode Aktif</p>
-                <p class="mt-2 text-[18px] font-semibold text-slate-900">Maret 2024</p>
-                <p class="mt-1 text-sm text-slate-500">Jadwalkan ulang atau duplikasi periode pembayaran dengan cepat.</p>
+            <div class="flex flex-col gap-3 rounded-2xl border border-cyan-100 bg-cyan-50 px-4 py-3 text-sm text-cyan-900">
+              <div class="flex items-start gap-3">
+                <img src="img/icon/info.svg" alt="" class="mt-0.5 h-5 w-5">
+                <div>
+                  <p class="font-semibold">Connect Employee Bank Accounts</p>
+                  <p class="text-slate-700">Share the Payroll registration code so employees can link their bank accounts.</p>
+                </div>
               </div>
-              <div class="rounded-2xl border border-slate-200/70 bg-slate-50 px-4 py-5">
-                <p class="text-sm font-semibold text-slate-500">Total Karyawan</p>
-                <p class="mt-2 text-[18px] font-semibold text-slate-900">128 orang</p>
-                <p class="mt-1 text-sm text-slate-500">Tambahkan karyawan baru dan atur struktur gaji secara massal.</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center gap-3">
-              <button class="inline-flex items-center gap-2 rounded-full bg-cyan-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-600/30 transition hover:-translate-y-[1px] hover:bg-cyan-500">
-                <img src="img/dashboard/akses-cepat/transfer.svg" alt="" class="w-4 h-4">
-                Mulai jalankan payroll
-              </button>
-              <button class="inline-flex items-center gap-2 rounded-full border border-cyan-200 px-5 py-3 text-sm font-semibold text-cyan-600 hover:bg-cyan-50">
-                Lihat histori penggajian
-              </button>
             </div>
           </article>
-          <aside class="rounded-3xl border border-slate-200 bg-slate-900/95 text-slate-100 shadow-[0_20px_45px_rgba(9,12,34,0.20)] p-6 space-y-5">
-            <header class="space-y-2">
-              <h2 class="text-[18px] font-semibold">Langkah cepat</h2>
-              <p class="text-sm text-slate-300">Optimalkan payroll perusahaan Anda melalui panduan singkat berikut.</p>
-            </header>
-            <ol class="space-y-4 text-sm">
-              <li class="flex gap-3">
-                <span class="mt-1 grid h-7 w-7 flex-none place-items-center rounded-full bg-cyan-500 text-sm font-semibold text-white">1</span>
-                <div>
-                  <p class="font-semibold text-white">Lengkapi data karyawan</p>
-                  <p class="text-slate-300">Impor template atau tambahkan secara manual untuk memastikan data gaji akurat.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-1 grid h-7 w-7 flex-none place-items-center rounded-full bg-cyan-500 text-sm font-semibold text-white">2</span>
-                <div>
-                  <p class="font-semibold text-white">Atur komponen gaji</p>
-                  <p class="text-slate-300">Konfigurasi gaji pokok, tunjangan, dan potongan sesuai kebutuhan perusahaan.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-1 grid h-7 w-7 flex-none place-items-center rounded-full bg-cyan-500 text-sm font-semibold text-white">3</span>
-                <div>
-                  <p class="font-semibold text-white">Review &amp; konfirmasi</p>
-                  <p class="text-slate-300">Periksa ringkasan pembayaran dan kirim payroll ke rekening karyawan secara serentak.</p>
-                </div>
-              </li>
-            </ol>
-            <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-              <p class="text-sm font-semibold text-white">Butuh bantuan?</p>
-              <p class="mt-1 text-sm text-slate-200">Hubungi tim support kami untuk proses implementasi payroll lebih lanjut.</p>
-              <button class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10">
-                <img src="img/dashboard/bantuan.svg" alt="" class="w-4 h-4">
-                Jadwalkan sesi onboarding
-              </button>
+
+          <article class="rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6">
+            <div class="flex flex-wrap items-start gap-4">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50">
+                <img src="img/illustration-4.svg" alt="Bank account" class="h-7 w-7">
+              </div>
+              <div class="flex-1 min-w-[240px] space-y-1">
+                <p class="text-[18px] font-semibold text-slate-900">No employee bank accounts connected yet</p>
+                <p class="text-slate-600">Share the registration code so employees can connect their bank accounts to Payroll.</p>
+              </div>
             </div>
-          </aside>
+
+            <div class="mt-6 grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-5">
+              <div class="flex flex-wrap items-start gap-3 justify-between">
+                <div>
+                  <p class="text-sm font-semibold text-slate-500">Payroll Registration Code</p>
+                  <p class="mt-2 font-mono text-[20px] font-semibold text-slate-900">Code not generated yet</p>
+                  <p class="mt-1 text-sm text-slate-500">This code is used by employees to register their payroll accounts.</p>
+                </div>
+                <div>
+                  <button class="inline-flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-cyan-600/30 transition hover:-translate-y-[1px] hover:bg-cyan-500 disabled:opacity-60">
+                    <img src="img/dashboard/akses-cepat/transfer.svg" alt="" class="h-4 w-4">
+                    Generate Code
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="grid gap-6 lg:grid-cols-2">
+            <article class="rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-4">
+              <h3 class="text-[18px] font-semibold text-slate-900">Panduan Registrasi Rekening Payroll</h3>
+              <ul class="space-y-3 text-sm text-slate-600 list-disc list-inside">
+                <li>Buka tab Payroll dan buat kode registrasi.</li>
+                <li>Bagikan kode Payroll ke karyawan.</li>
+                <li>Karyawan menggunakan kode untuk membuka rekening payroll di aplikasi.</li>
+              </ul>
+            </article>
+
+            <article class="rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-4">
+              <h3 class="text-[18px] font-semibold text-slate-900">Manfaat Payroll Amar Bank</h3>
+              <ul class="space-y-3 text-sm text-slate-600 list-disc list-inside">
+                <li>Pembayaran gaji lebih cepat dan akurat.</li>
+                <li>Integrasi langsung dengan Amar Bank Digital.</li>
+                <li>Tarik gaji instan dengan Kredit Tunai Darurat.</li>
+                <li>Mendukung pengelolaan payroll yang lebih sederhana.</li>
+              </ul>
+            </article>
+          </div>
         </section>
 
       </div>
