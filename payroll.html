@@ -153,25 +153,76 @@
         </div>
 
         <section class="space-y-6">
-          <article class="rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-4">
-            <div class="flex flex-wrap items-center gap-3">
-              <p class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
-                <img src="img/select-box-circle-fill.svg" alt="" class="w-4 h-4">
-                Payroll Aktif
-              </p>
+          <article class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-5">
+            <div class="pointer-events-none absolute inset-0 overflow-hidden">
+              <div class="absolute -left-16 -top-20 h-56 w-56 rounded-full bg-cyan-100 blur-3xl opacity-70"></div>
+              <div class="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-amber-100 blur-3xl opacity-70"></div>
+              <div class="absolute right-6 top-6 h-16 w-16 rounded-full border-2 border-cyan-50 shadow-[0_6px_18px_rgba(9,12,34,0.06)]"></div>
+              <div class="absolute left-10 bottom-6 h-12 w-12 rounded-full border-2 border-amber-50 shadow-[0_6px_18px_rgba(9,12,34,0.06)]"></div>
             </div>
-            <header class="space-y-2">
-              <h2 class="text-[20px] font-semibold text-slate-900">Kelola Penggajian Lebih Mudah</h2>
-              <p class="text-slate-600">Susun jadwal pembayaran gaji, atur benefit, dan pantau status payroll dalam satu dashboard terintegrasi.</p>
-            </header>
-            <div class="rounded-2xl border border-emerald-200 border-dashed bg-emerald-50/70 px-5 py-4">
-              <div class="flex items-start gap-3">
-                <div class="mt-0.5 h-6 w-6 flex-none rounded-full bg-white text-emerald-600 grid place-items-center shadow-sm ring-1 ring-emerald-100">
-                  <img src="img/select-box-circle-fill.svg" alt="" class="h-3.5 w-3.5">
+
+            <div class="relative space-y-5">
+              <div class="flex flex-wrap items-center gap-3">
+                <p id="payrollStatusBadge" class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
+                  <img src="img/select-box-circle-fill.svg" alt="" class="w-4 h-4">
+                  Payroll Aktif
+                </p>
+              </div>
+
+              <header class="space-y-2">
+                <h2 class="text-[24px] font-semibold text-slate-900">Kelola Penggajian Lebih Mudah</h2>
+                <p class="text-base text-slate-600">Susun jadwal pembayaran gaji, atur benefit, dan pantau status payroll dalam satu dashboard terintegrasi.</p>
+              </header>
+
+              <div class="grid gap-4">
+                <div class="flex flex-wrap items-start gap-4 rounded-2xl border border-cyan-100 bg-white/80 px-5 py-4 shadow-[0_12px_30px_rgba(11,142,158,0.08)]">
+                  <div class="mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-cyan-50 shadow-sm ring-1 ring-cyan-100">
+                    <img src="img/icon/info.svg" alt="Info" class="h-5 w-5">
+                  </div>
+                  <div class="space-y-1 min-w-0">
+                    <p class="text-sm font-semibold text-slate-900">Hubungkan Rekening Karyawan</p>
+                    <p class="text-sm text-slate-700">Bagikan kode registrasi di bawah ini kepada karyawan agar terhubung dengan sistem Payroll Amar Bank.</p>
+                  </div>
                 </div>
-                <div class="space-y-1">
-                  <p class="text-sm font-semibold text-emerald-800">Hubungkan Rekening Karyawan</p>
-                  <p class="text-sm text-emerald-700">Bagikan kode registrasi di bawah ini kepada karyawan agar terhubung dengan sistem Payroll Amar Bank.</p>
+
+                <div class="rounded-2xl border border-cyan-200 border-dashed bg-white/90 px-5 py-4 shadow-[0_12px_30px_rgba(11,142,158,0.08)]">
+                  <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex flex-wrap items-start gap-4 min-w-0">
+                      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-cyan-100">
+                        <img src="img/ambis-vertical-logo.svg" alt="Kode registrasi" class="h-10 w-10">
+                      </div>
+                      <div class="space-y-2 min-w-0">
+                        <div class="space-y-1">
+                          <p class="text-sm font-semibold uppercase tracking-[.08em] text-cyan-700">Kode Registrasi Payroll</p>
+                          <div class="flex flex-wrap items-center gap-3">
+                            <div class="flex items-center gap-3 rounded-xl border border-cyan-200 bg-white px-4 py-2 shadow-sm">
+                              <span id="registrationCodeValue" class="font-mono text-[20px] font-semibold text-slate-900">Belum ada kode</span>
+                            </div>
+                            <span id="registrationCodeStatus" class="text-sm font-semibold text-emerald-600 hidden"></span>
+                          </div>
+                        </div>
+                        <p class="text-sm text-slate-700">Bagikan kode ini kepada karyawan agar terhubung dengan sistem Payroll Amar Bank.</p>
+                        <p id="generateCodeMessage" class="text-xs font-semibold text-emerald-600 hidden">Kode registrasi berhasil dibuat.</p>
+                      </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                      <button id="generateCodeBtn" class="inline-flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-cyan-600/40 transition hover:-translate-y-[1px] hover:bg-cyan-500 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0" disabled>
+                        <img src="img/select-box-circle-fill.svg" alt="" class="h-4 w-4">
+                        Buat Kode
+                      </button>
+                    </div>
+                  </div>
+                  <div id="codeError" class="mt-4 hidden rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="font-semibold">Gagal memuat kode registrasi.</span>
+                      <button id="retryCode" class="rounded-md border border-rose-200 bg-white px-2 py-1 text-xs font-semibold text-rose-700 transition hover:bg-rose-50">Coba Lagi</button>
+                    </div>
+                  </div>
+                  <div id="codeLoading" class="mt-4 hidden animate-pulse space-y-3">
+                    <div class="h-4 w-48 rounded bg-slate-200"></div>
+                    <div class="h-6 w-40 rounded bg-slate-200"></div>
+                    <div class="h-3 w-64 rounded bg-slate-200"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -213,44 +264,8 @@
             </div>
 
             <div id="accountEmpty" class="space-y-4">
-              <div class="rounded-2xl border border-cyan-100 bg-cyan-50/70 px-5 py-5">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                  <div class="flex flex-wrap items-start gap-4 min-w-0">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-cyan-100">
-                      <img src="img/ambis-vertical-logo.svg" alt="Kode registrasi" class="h-10 w-10">
-                    </div>
-                    <div class="space-y-2 min-w-0">
-                      <div class="space-y-1">
-                        <p class="text-sm font-semibold uppercase tracking-[.08em] text-cyan-700">Kode Registrasi Payroll</p>
-                        <div class="flex flex-wrap items-center gap-3">
-                          <div class="flex items-center gap-3 rounded-xl border border-cyan-200 bg-white px-4 py-2 shadow-sm">
-                            <span id="registrationCodeValue" class="font-mono text-[20px] font-semibold text-slate-900">Belum ada kode</span>
-                          </div>
-                          <span id="registrationCodeStatus" class="text-sm font-semibold text-emerald-600 hidden"></span>
-                        </div>
-                      </div>
-                      <p class="text-sm text-slate-700">Bagikan kode ini kepada karyawan agar terhubung dengan sistem Payroll Amar Bank.</p>
-                      <p id="generateCodeMessage" class="text-xs font-semibold text-emerald-600 hidden">Kode registrasi berhasil dibuat.</p>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2">
-                    <button id="generateCodeBtn" class="inline-flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-cyan-600/40 transition hover:-translate-y-[1px] hover:bg-cyan-500 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0" disabled>
-                      <img src="img/select-box-circle-fill.svg" alt="" class="h-4 w-4">
-                      Buat Kode
-                    </button>
-                  </div>
-                </div>
-                <div id="codeError" class="mt-4 hidden rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="font-semibold">Gagal memuat kode registrasi.</span>
-                    <button id="retryCode" class="rounded-md border border-rose-200 bg-white px-2 py-1 text-xs font-semibold text-rose-700 transition hover:bg-rose-50">Coba Lagi</button>
-                  </div>
-                </div>
-                <div id="codeLoading" class="mt-4 hidden animate-pulse space-y-3">
-                  <div class="h-4 w-48 rounded bg-slate-200"></div>
-                  <div class="h-6 w-40 rounded bg-slate-200"></div>
-                  <div class="h-3 w-64 rounded bg-slate-200"></div>
-                </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-700">
+                Belum ada rekening karyawan yang terhubung.
               </div>
             </div>
           </article>
@@ -299,6 +314,7 @@
       generatingCode: false,
     };
 
+    const payrollStatusBadge = document.getElementById('payrollStatusBadge');
     const accountLoadingEl = document.getElementById('accountLoading');
     const accountErrorEl = document.getElementById('accountError');
     const accountEmptyEl = document.getElementById('accountEmpty');
@@ -314,6 +330,10 @@
     function setVisibility(element, show) {
       if (!element) return;
       element.classList.toggle('hidden', !show);
+    }
+
+    function renderHero() {
+      setVisibility(payrollStatusBadge, state.payrollActive);
     }
 
     function renderAccounts() {
@@ -407,6 +427,8 @@
           renderCode();
         });
     }
+
+    renderHero();
 
     retryAccountsBtn?.addEventListener('click', () => {
       fetchAccounts();
