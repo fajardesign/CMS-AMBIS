@@ -38,6 +38,24 @@
 
   <!-- Global styles -->
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .payroll-registration-card {
+      position: relative;
+      min-height: 68px;
+      border-radius: 12px;
+      background-color: #E4FBF8;
+    }
+
+    .payroll-registration-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Crect x='1' y='1' width='98' height='98' rx='12' ry='12' fill='none' stroke='%23009FAF' stroke-width='2' stroke-dasharray='10 10'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    }
+  </style>
 </head>
 <body class="font-[Mulish] bg-gray-50 text-slate-900">
   <div class="h-screen overflow-hidden flex">
@@ -185,33 +203,24 @@
                   </div>
                 </div>
 
-                <div class="rounded-2xl border border-cyan-200 border-dashed bg-white/90 px-5 py-4 shadow-[0_12px_30px_rgba(11,142,158,0.08)]">
-                  <div class="flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex flex-wrap items-start gap-4 min-w-0">
-                      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-cyan-100">
-                        <img src="img/ambis-vertical-logo.svg" alt="Kode registrasi" class="h-10 w-10">
-                      </div>
-                      <div class="space-y-2 min-w-0">
-                        <div class="space-y-1">
-                          <p class="text-sm font-semibold uppercase tracking-[.08em] text-cyan-700">Kode Registrasi Payroll</p>
-                          <div class="flex flex-wrap items-center gap-3">
-                            <div class="flex items-center gap-3 rounded-xl border border-cyan-200 bg-white px-4 py-2 shadow-sm">
-                              <span id="registrationCodeValue" class="font-mono text-[20px] font-semibold text-slate-900">Belum ada kode</span>
-                            </div>
-                            <span id="registrationCodeStatus" class="text-sm font-semibold text-emerald-600 hidden"></span>
-                          </div>
-                        </div>
-                        <p class="text-sm text-slate-700">Bagikan kode ini kepada karyawan agar terhubung dengan sistem Payroll Amar Bank.</p>
-                        <p id="generateCodeMessage" class="text-xs font-semibold text-emerald-600 hidden">Kode registrasi berhasil dibuat.</p>
+                <div class="payroll-registration-card h-[68px] px-4 py-3 shadow-[0_12px_30px_rgba(11,142,158,0.08)]">
+                  <div class="relative z-[1] flex h-full flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <img src="img/logo.svg" alt="Amar Bank" class="h-8 w-auto shrink-0">
+                      <div class="min-w-0">
+                        <p class="text-[16px] font-semibold text-slate-900">Kode Registrasi Payroll</p>
                       </div>
                     </div>
                     <div class="flex flex-col items-end gap-2">
-                      <button id="generateCodeBtn" class="inline-flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-cyan-600/40 transition hover:-translate-y-[1px] hover:bg-cyan-500 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0" disabled>
+                      <button id="generateCodeBtn" class="inline-flex items-center gap-2 rounded-[8px] bg-[#009FAF] px-4 py-2 text-[16px] font-semibold text-white shadow-cyan-600/40 transition hover:-translate-y-[1px] hover:bg-cyan-500 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0" disabled>
                         <img src="img/select-box-circle-fill.svg" alt="" class="h-4 w-4">
                         Buat Kode
                       </button>
                     </div>
                   </div>
+                  <span id="registrationCodeValue" class="hidden">Belum ada kode</span>
+                  <span id="registrationCodeStatus" class="hidden"></span>
+                  <p id="generateCodeMessage" class="hidden">Kode registrasi berhasil dibuat.</p>
                   <div id="codeError" class="mt-4 hidden rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
                     <div class="flex flex-wrap items-center gap-2">
                       <span class="font-semibold">Gagal memuat kode registrasi.</span>
