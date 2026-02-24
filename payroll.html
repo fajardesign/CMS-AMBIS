@@ -186,9 +186,7 @@
         <section class="space-y-6">
           <article class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] space-y-5" style="padding:24pt;">
             <div class="pointer-events-none absolute inset-0 overflow-hidden">
-              <div class="absolute -left-16 -top-20 h-56 w-56 rounded-full bg-cyan-100 blur-3xl opacity-70"></div>
-              <div class="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-amber-100 blur-3xl opacity-70"></div>
-              <div class="absolute left-10 bottom-6 h-12 w-12 rounded-full border-2 border-amber-50 shadow-[0_6px_18px_rgba(9,12,34,0.06)]"></div>
+              <img src="img/Hero-bg.svg" alt="" class="h-full w-full object-cover">
             </div>
 
             <div class="relative space-y-5">
@@ -206,8 +204,8 @@
 
               <div class="grid gap-4">
                 <div class="flex flex-wrap items-start gap-4 rounded-2xl border border-cyan-100 bg-[#F2F9FF] px-5 py-4">
-                  <div class="mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-cyan-50 shadow-sm ring-1 ring-cyan-100">
-                    <img src="img/icon/info.svg" alt="Info" class="h-5 w-5">
+                  <div class="mt-1 shrink-0">
+                    <img src="img/icon/information-fill.svg" alt="Info" class="h-5 w-5">
                   </div>
                   <div class="space-y-1 min-w-0">
                     <p class="text-[16px] font-semibold text-slate-900">Hubungkan Rekening Karyawan</p>
@@ -260,20 +258,34 @@
               <h3 class="text-[20px] font-bold text-slate-900">Panduan Registrasi Rekening Payroll</h3>
               <ul class="space-y-4 text-slate-700">
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 font-semibold">1</span>
+                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
+                    <img src="img/icon/playstore.svg" alt="Playstore" class="h-5 w-5">
+                  </span>
                   <p class="text-[16px]">Minta karyawan menginstal aplikasi <strong>Amar Bank Digital</strong>.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 font-semibold">2</span>
+                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
+                    <img src="img/icon/digital-form.svg" alt="Digital form" class="h-5 w-5">
+                  </span>
                   <p class="text-[16px]">Arahkan karyawan untuk <strong>membuka rekening</strong> secara digital.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 font-semibold">3</span>
+                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
+                    <img src="img/icon/share.svg" alt="Bagikan" class="h-5 w-5">
+                  </span>
                   <p class="text-[16px]">Bagikan <strong>kode registrasi payroll</strong> ke karyawan.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 font-semibold">4</span>
+                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
+                    <img src="img/icon/phone.svg" alt="Ponsel" class="h-5 w-5">
+                  </span>
                   <p class="text-[16px]">Karyawan memasukkan <strong>Kode Registrasi Payroll</strong> melalui aplikasi Amar Bank Digital.</p>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
+                    <img src="img/icon/check.svg" alt="Checklist" class="h-5 w-5">
+                  </span>
+                  <p class="text-[16px]">Cek dashboard payroll untuk melihat rekening karyawan yang akan terhubung dengan payroll.</p>
                 </li>
               </ul>
             </article>
@@ -328,9 +340,6 @@
     const state = {
       payrollActive: true,
       hasPermission: true,
-      accountsLoading: true,
-      accountsError: false,
-      accounts: [],
       codeLoading: true,
       codeError: false,
       code: null,
@@ -339,10 +348,6 @@
     };
 
     const payrollStatusBadge = document.getElementById('payrollStatusBadge');
-    const accountLoadingEl = document.getElementById('accountLoading');
-    const accountErrorEl = document.getElementById('accountError');
-    const accountEmptyEl = document.getElementById('accountEmpty');
-    const retryAccountsBtn = document.getElementById('retryAccounts');
     const registrationCodeValue = document.getElementById('registrationCodeValue');
     const registrationCodeStatus = document.getElementById('registrationCodeStatus');
     const registrationCodeHint = document.getElementById('registrationCodeHint');
@@ -367,12 +372,6 @@
 
     function renderHero() {
       setVisibility(payrollStatusBadge, state.payrollActive);
-    }
-
-    function renderAccounts() {
-      setVisibility(accountLoadingEl, state.accountsLoading);
-      setVisibility(accountErrorEl, state.accountsError);
-      setVisibility(accountEmptyEl, !state.accountsLoading && !state.accountsError && state.accounts.length === 0);
     }
 
     function renderCode() {
@@ -460,23 +459,6 @@
       setTimeout(() => setVisibility(copyToast, false), 1800);
     }
 
-    function fetchAccounts() {
-      state.accountsLoading = true;
-      state.accountsError = false;
-      renderAccounts();
-
-      return new Promise((resolve) => setTimeout(resolve, 800)).then(() => {
-        state.accountsLoading = false;
-        state.accountsError = false;
-        state.accounts = [];
-        renderAccounts();
-      }).catch(() => {
-        state.accountsLoading = false;
-        state.accountsError = true;
-        renderAccounts();
-      });
-    }
-
     function fetchRegistrationCode() {
       state.codeLoading = true;
       state.codeError = false;
@@ -524,10 +506,6 @@
 
     renderHero();
 
-    retryAccountsBtn?.addEventListener('click', () => {
-      fetchAccounts();
-    });
-
     retryCodeBtn?.addEventListener('click', () => {
       fetchRegistrationCode();
     });
@@ -546,7 +524,6 @@
       }
     });
 
-    fetchAccounts();
     fetchRegistrationCode();
   </script>
 </body>
