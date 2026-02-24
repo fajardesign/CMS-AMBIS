@@ -219,7 +219,7 @@
                       <img src="img/logo.svg" alt="Amar Bank" class="h-8 w-auto shrink-0">
                       <div class="min-w-0">
                         <p class="text-[16px] text-slate-900">Kode Registrasi Payroll</p>
-                        <p id="registrationCodeHint" class="text-xs text-slate-600">Belum ada kode yang dibuat.</p>
+                        <p id="registrationCodeHint" class="hidden text-xs text-slate-600"></p>
                       </div>
                     </div>
                     <div class="flex flex-col items-end gap-2">
@@ -258,32 +258,32 @@
               <h3 class="text-[20px] font-bold text-slate-900">Panduan Registrasi Rekening Payroll</h3>
               <ul class="space-y-4 text-slate-700">
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
-                    <img src="img/icon/playstore.svg" alt="Playstore" class="h-5 w-5">
+                  <span class="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center">
+                    <img src="img/icon/playstore.svg" alt="Playstore" class="h-12 w-12">
                   </span>
                   <p class="text-[16px]">Minta karyawan menginstal aplikasi <strong>Amar Bank Digital</strong>.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
-                    <img src="img/icon/digital-form.svg" alt="Digital form" class="h-5 w-5">
+                  <span class="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center">
+                    <img src="img/icon/digital-form.svg" alt="Digital form" class="h-12 w-12">
                   </span>
                   <p class="text-[16px]">Arahkan karyawan untuk <strong>membuka rekening</strong> secara digital.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
-                    <img src="img/icon/share.svg" alt="Bagikan" class="h-5 w-5">
+                  <span class="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center">
+                    <img src="img/icon/share.svg" alt="Bagikan" class="h-12 w-12">
                   </span>
                   <p class="text-[16px]">Bagikan <strong>kode registrasi payroll</strong> ke karyawan.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
-                    <img src="img/icon/phone.svg" alt="Ponsel" class="h-5 w-5">
+                  <span class="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center">
+                    <img src="img/icon/phone.svg" alt="Ponsel" class="h-12 w-12">
                   </span>
                   <p class="text-[16px]">Karyawan memasukkan <strong>Kode Registrasi Payroll</strong> melalui aplikasi Amar Bank Digital.</p>
                 </li>
                 <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50">
-                    <img src="img/icon/check.svg" alt="Checklist" class="h-5 w-5">
+                  <span class="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center">
+                    <img src="img/icon/check.svg" alt="Checklist" class="h-12 w-12">
                   </span>
                   <p class="text-[16px]">Cek dashboard payroll untuk melihat rekening karyawan yang akan terhubung dengan payroll.</p>
                 </li>
@@ -396,20 +396,23 @@
       if (state.codeError || state.codeLoading) {
         registrationCodeValue.textContent = '';
         registrationCodeStatus.textContent = '';
-        registrationCodeHint.textContent = 'Belum ada kode yang dibuat.';
+        registrationCodeHint.textContent = '';
+        setVisibility(registrationCodeHint, false);
         setVisibility(registrationCodeMeta, false);
         stopCountdown();
         return;
       }
 
       if (!state.code) {
-        registrationCodeHint.textContent = 'Belum ada kode yang dibuat.';
+        registrationCodeHint.textContent = '';
+        setVisibility(registrationCodeHint, false);
         setVisibility(registrationCodeMeta, false);
         stopCountdown();
         return;
       }
 
       registrationCodeHint.textContent = 'Kode aktif untuk proses registrasi karyawan.';
+      setVisibility(registrationCodeHint, true);
       registrationCodeValue.textContent = state.code;
       setVisibility(registrationCodeMeta, true);
       updateCountdownText();
