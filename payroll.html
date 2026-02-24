@@ -225,6 +225,7 @@
                       </div>
                     </div>
                     <div class="flex flex-col items-end gap-2">
+                      <img id="generateLoadingIcon" src="img/icon/General Widget/System Icons/ic-loading.svg" alt="Generating code" class="hidden h-8 w-8 animate-spin" />
                       <button id="generateCodeBtn" class="inline-flex items-center gap-2 rounded-[8px] bg-[#009FAF] border border-[#009FAF] px-4 py-2 text-[16px] font-semibold text-white transition hover:-translate-y-[1px] hover:bg-cyan-500 disabled:opacity-60 disabled:hover:translate-y-0" disabled>
                         <span id="generateSpinner" class="btn-spinner hidden" aria-hidden="true"></span>
                         <span id="generateCodeBtnLabel">Buat Kode</span>
@@ -354,6 +355,7 @@
     const generateCodeBtn = document.getElementById('generateCodeBtn');
     const generateCodeBtnLabel = document.getElementById('generateCodeBtnLabel');
     const generateSpinner = document.getElementById('generateSpinner');
+    const generateLoadingIcon = document.getElementById('generateLoadingIcon');
     const copyCodeBtn = document.getElementById('copyCodeBtn');
     const copyToast = document.getElementById('copyToast');
     const generateCodeMessage = document.getElementById('generateCodeMessage');
@@ -380,6 +382,8 @@
       generateCodeBtn.disabled = disableGenerate;
       registrationCodeCard.classList.toggle('opacity-60', state.generatingCode);
       setVisibility(generateSpinner, state.generatingCode);
+      setVisibility(generateCodeBtn, !state.generatingCode);
+      setVisibility(generateLoadingIcon, state.generatingCode);
       generateCodeBtnLabel.textContent = state.code ? 'Perbarui Kode' : 'Buat Kode';
 
       if (state.code && !state.generatingCode) {
