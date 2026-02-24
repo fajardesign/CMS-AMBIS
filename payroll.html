@@ -399,14 +399,14 @@
       if (state.codeError || state.codeLoading) {
         registrationCodeValue.textContent = '';
         registrationCodeStatus.textContent = '';
-        registrationCodeHint.textContent = 'Belum ada kode yang dibuat.';
+        registrationCodeHint.textContent = '';
         setVisibility(registrationCodeMeta, false);
         stopCountdown();
         return;
       }
 
       if (!state.code) {
-        registrationCodeHint.textContent = 'Belum ada kode yang dibuat.';
+        registrationCodeHint.textContent = '';
         setVisibility(registrationCodeMeta, false);
         stopCountdown();
         return;
