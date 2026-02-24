@@ -234,8 +234,12 @@
                     </div>
                   </div>
                   <div id="registrationCodeMeta" class="relative z-[1] mt-3 hidden w-full items-center justify-between gap-4 text-sm text-slate-700">
-                    <div class="min-w-0">
-                      <span id="registrationCodeValue" class="registration-code-text text-slate-900">-</span>
+                    <div class="flex items-center gap-3 min-w-0">
+                      <img src="img/logo.svg" alt="Amar Bank" class="h-8 w-auto shrink-0">
+                      <p class="min-w-0 text-[16px] font-normal text-slate-700">
+                        Kode Payroll :
+                        <span id="registrationCodeValue" class="registration-code-text text-slate-900">-</span>
+                      </p>
                     </div>
                     <div class="flex items-center gap-2">
                       <div class="text-right leading-tight">
@@ -441,8 +445,26 @@
     }
 
     function generateRegistrationCode(length = 6) {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+      const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const lower = 'abcdefghijklmnopqrstuvwxyz';
+      const digit = '0123456789';
+      const chars = `${upper}${lower}${digit}`;
+      const mandatory = [
+        upper[Math.floor(Math.random() * upper.length)],
+        lower[Math.floor(Math.random() * lower.length)],
+        digit[Math.floor(Math.random() * digit.length)]
+      ];
+
+      while (mandatory.length < length) {
+        mandatory.push(chars[Math.floor(Math.random() * chars.length)]);
+      }
+
+      for (let i = mandatory.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [mandatory[i], mandatory[j]] = [mandatory[j], mandatory[i]];
+      }
+
+      return mandatory.join('').slice(0, length);
     }
 
     function updateCountdownText() {
