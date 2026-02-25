@@ -155,32 +155,16 @@
         </div>
 
         <section class="space-y-6">
-          <article class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] space-y-5" style="padding:24pt;">
-            <img src="img/hero-bg.svg" alt="" class="pointer-events-none absolute left-0 top-0 h-full w-[529px] object-cover" aria-hidden="true">
-
-            <div class="relative space-y-5">
-              <div class="flex flex-wrap items-center gap-3">
-                <p id="payrollStatusBadge" class="inline-flex items-center gap-2 rounded-[8pt] border border-[#ebebeb] bg-white px-3 py-1 text-sm font-semibold text-emerald-700">
-                  <img src="img/select-box-circle-fill.svg" alt="" class="w-4 h-4">
-                  Payroll Aktif
-                </p>
-              </div>
-
-              <header class="space-y-2">
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_20px_45px_rgba(9,12,34,0.04)]">
+            <div class="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)]">
+              <div class="space-y-4 rounded-2xl border border-slate-200 bg-white p-5">
                 <h2 class="text-[20px] font-bold text-slate-900">Kelola Penggajian Lebih Mudah</h2>
-                <p class="text-[16px] text-[#7d7d7d]">Susun jadwal pembayaran gaji, atur benefit, dan pantau status payroll dalam satu dashboard terintegrasi.</p>
-              </header>
+                <p class="text-[16px] text-[#5c5c5c]">
+                  Susun jadwal pembayaran gaji, atur benefit, dan pantau status payroll dalam satu dashboard terintegrasi.
+                  <a href="#" class="font-bold text-[#009faf] hover:underline">Lihat Panduan Disini</a>
+                </p>
 
-              <div class="grid gap-4">
-                <div class="flex flex-wrap items-start gap-4 rounded-2xl border border-cyan-100 bg-[#F2F9FF] px-5 py-4">
-                  <img src="img/icon/infirmation-fill.svg" alt="Info" class="mt-1 h-6 w-6 shrink-0">
-                  <div class="space-y-1 min-w-0">
-                    <p class="text-[16px] font-semibold text-slate-900">Hubungkan Rekening Karyawan</p>
-                    <p class="text-[16px] text-slate-700">Bagikan <strong>kode registrasi di bawah ini</strong> kepada karyawan agar terhubung dengan sistem Payroll Amar Bank.</p>
-                  </div>
-                </div>
-
-                <div id="registrationCodeCard" class="flex w-1/2 items-center justify-between gap-4 rounded-[12px] border-2 border-dashed border-[#009faf] bg-[#e4fbf8] px-4 py-3">
+                <div id="registrationCodeCard" class="flex flex-wrap items-center justify-between gap-4 rounded-[12px] border-2 border-dashed border-[#009faf] bg-white px-4 py-3">
                   <div id="registrationCodeLeft" class="flex min-w-0 items-center gap-3">
                     <img src="img/General Widget/Amar Bank/lg-amarbank_logogram.svg" alt="Amar Bank" class="h-[24px] w-[32px] shrink-0">
                     <div class="min-w-0">
@@ -204,72 +188,68 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
+              <div class="rounded-2xl border border-[#d1d1d1] bg-white bg-[url('img/hero-bg.svg')] bg-cover bg-right-top p-4">
+                <div class="mb-3 flex items-start justify-between gap-2">
+                  <h3 class="text-[16px] font-normal text-[#5c5c5c]">Sisa Limit Harian Payroll</h3>
+                  <img src="img/icon/info.svg" title="Sisa limit transaksi payroll harian." alt="Info" class="h-5 w-5">
+                </div>
+                <p class="text-[18px] font-bold leading-tight text-slate-900">Rp1.000.000.000</p>
+                <div class="mt-3 h-2 w-full rounded-full bg-slate-200">
+                  <div class="h-2 w-full rounded-full bg-[#009faf]"></div>
+                </div>
+                <p class="mt-2 text-[12px] text-[#5c5c5c]">dari total Rp1.000.000.000</p>
+              </div>
+
+              <div class="rounded-2xl border border-[#d1d1d1] bg-white bg-[url('img/hero-bg.svg')] bg-cover bg-right-top p-4">
+                <div class="mb-3 flex items-start justify-between gap-2">
+                  <h3 class="text-[16px] font-normal text-[#5c5c5c]">Rekening Karyawan</h3>
+                  <img src="img/icon/info.svg" title="Total rekening karyawan payroll." alt="Info" class="h-5 w-5">
+                </div>
+                <p class="text-[24px] font-bold leading-tight text-slate-900">150</p>
+                <div class="mt-3 flex flex-wrap gap-2 text-[16px]">
+                  <span class="rounded-full bg-[#f1f9ef] px-3 py-1 text-[#5ea94c]">0 Aktif</span>
+                  <span class="rounded-full bg-[#fef5e8] px-3 py-1 text-[#e38319]">150 Pending</span>
+                </div>
               </div>
             </div>
           </article>
 
-          <div class="grid gap-6 lg:grid-cols-2">
-            <article class="rounded-2xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-4">
-              <h3 class="text-[20px] font-bold text-slate-900">Panduan Registrasi Rekening Payroll</h3>
-              <ul class="space-y-4 text-slate-700">
-                <li class="flex items-start gap-3">
-                  <img src="img/icon/playstore.svg" alt="Play Store" class="h-12 w-12 shrink-0">
-                  <p class="text-[16px]">Minta karyawan menginstal aplikasi <strong>Amar Bank Digital</strong>.</p>
-                </li>
-                <li class="flex items-start gap-3">
-                  <img src="img/icon/digital-form.svg" alt="Form Digital" class="h-12 w-12 shrink-0">
-                  <p class="text-[16px]">Arahkan karyawan untuk <strong>membuka rekening</strong> secara digital.</p>
-                </li>
-                <li class="flex items-start gap-3">
-                  <img src="img/icon/share.svg" alt="Bagikan" class="h-12 w-12 shrink-0">
-                  <p class="text-[16px]">Bagikan <strong>kode registrasi payroll</strong> ke karyawan.</p>
-                </li>
-                <li class="flex items-start gap-3">
-                  <img src="img/icon/phone.svg" alt="Telepon" class="h-12 w-12 shrink-0">
-                  <p class="text-[16px]">Karyawan memasukkan <strong>Kode Registrasi Payroll</strong> melalui aplikasi Amar Bank Digital.</p>
-                </li>
-                <li class="flex items-start gap-3">
-                  <img src="img/icon/check.svg" alt="Cek" class="h-12 w-12 shrink-0">
-                  <p class="text-[16px]">Cek dashboard payroll untuk melihat rekening karyawan yang akan terhubung dengan payroll.</p>
-                </li>
-              </ul>
-            </article>
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_20px_45px_rgba(9,12,34,0.04)]">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <label class="relative block w-full max-w-[349px]">
+                <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true">🔍</span>
+                <input id="employeeSearch" type="search" placeholder="Cari data karyawan" class="h-12 w-full rounded-xl border border-slate-300 bg-white pl-12 pr-4 text-[16px] text-slate-700 placeholder:text-slate-400 focus:border-[#009faf] focus:outline-none">
+              </label>
 
-            <article class="rounded-2xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(9,12,34,0.04)] p-6 space-y-4">
-              <h3 class="text-[20px] font-bold text-slate-900">Manfaat Payroll Amar Bank</h3>
-              <ul class="space-y-4 text-slate-700">
-                <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 text-lg">✓</span>
-                  <div>
-                    <p class="text-[20px] font-bold text-slate-900 leading-tight">Pembayaran Gaji Lebih Cepat &amp; Akurat</p>
-                    <p class="text-[16px] text-slate-500">Proses penggajian dilakukan otomatis sesuai data karyawan.</p>
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 text-lg">✓</span>
-                  <div>
-                    <p class="text-[20px] font-bold text-slate-900 leading-tight">Integrasi Langsung dengan Amar Bank Digital</p>
-                    <p class="text-[16px] text-slate-500">Rekening karyawan terhubung otomatis melalui kode bisnis.</p>
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 text-lg">✓</span>
-                  <div>
-                    <p class="text-[20px] font-bold text-slate-900 leading-tight">Transfer Gaji Seketika atau Terjadwal</p>
-                    <p class="text-[16px] text-slate-500">Pilih pembayaran langsung atau terjadwal sesuai kebutuhan perusahaan.</p>
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 text-lg">✓</span>
-                  <div>
-                    <p class="text-[20px] font-bold text-slate-900 leading-tight">Mendukung Pengelolaan Karyawan yang Lebih Tertib</p>
-                    <p class="text-[16px] text-slate-500">Data tersinkron otomatis dari CMS, sehingga meminimalkan duplikasi atau ketidaksesuaian data.</p>
-                  </div>
-                </li>
-              </ul>
-            </article>
-          </div>
+              <div class="flex flex-wrap items-center gap-3">
+                <button type="button" class="inline-flex h-12 items-center justify-center rounded-xl border border-[#009faf] px-4 text-[16px] font-semibold text-[#009faf] hover:bg-cyan-50">Download Template</button>
+                <button id="buatPenggajianBtn" type="button" class="inline-flex h-12 items-center justify-center rounded-xl bg-[#009faf] px-4 text-[16px] font-semibold text-white enabled:hover:brightness-105 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400">Buat Penggajian</button>
+              </div>
+            </div>
+
+            <div id="employeeTabs" class="mb-4 border-b border-slate-200"></div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-left">
+                <thead>
+                  <tr class="bg-slate-100 text-[16px] font-semibold text-slate-600">
+                    <th class="w-10 px-3 py-3"><input type="checkbox" aria-label="Pilih semua data" class="h-5 w-5 rounded border-slate-300"></th>
+                    <th class="px-3 py-3">Nama Lengkap</th>
+                    <th class="px-3 py-3">NIK</th>
+                    <th class="px-3 py-3">Email Address</th>
+                    <th class="px-3 py-3">Nomor Rekening</th>
+                    <th class="px-3 py-3">Status Rekening</th>
+                    <th class="px-3 py-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="employeeTableBody"></tbody>
+              </table>
+            </div>
+
+            <div id="employeePagination" class="mt-4 flex items-center justify-end gap-2"></div>
+          </article>
         </section>
 
       </div>
@@ -282,18 +262,18 @@
   <script src="sidebar.js"></script>
   <script>
     const state = {
-      payrollActive: true,
-      hasPermission: true,
-      accountsLoading: true,
-      accountsError: false,
-      accounts: [],
+      employees: [],
+      activeTab: 'butuhKonfirmasi',
+      searchQuery: '',
+      currentPage: 1,
+      pageSize: 10,
     };
 
-    const payrollStatusBadge = document.getElementById('payrollStatusBadge');
-    const accountLoadingEl = document.getElementById('accountLoading');
-    const accountErrorEl = document.getElementById('accountError');
-    const accountEmptyEl = document.getElementById('accountEmpty');
-    const retryAccountsBtn = document.getElementById('retryAccounts');
+    const employeeTabs = document.getElementById('employeeTabs');
+    const employeeSearch = document.getElementById('employeeSearch');
+    const employeeTableBody = document.getElementById('employeeTableBody');
+    const employeePagination = document.getElementById('employeePagination');
+    const buatPenggajianBtn = document.getElementById('buatPenggajianBtn');
     const generateCodeBtn = document.getElementById('generateCodeBtn');
     const registrationCodeLabel = document.getElementById('registrationCodeLabel');
     const registrationCodeValue = document.getElementById('registrationCodeValue');
@@ -303,6 +283,34 @@
       isLoading: false,
       generatedCode: '',
     };
+
+    const TAB_CONFIG = [
+      { key: 'aktif', label: 'Rekening Aktif', showBadge: false },
+      { key: 'butuhKonfirmasi', label: 'Butuh Konfirmasi Anda', showBadge: true },
+      { key: 'menungguPersetujuan', label: 'Menunggu Persetujuan', showBadge: false },
+    ];
+
+    function createDummyEmployees(total, status) {
+      return Array.from({ length: total }, (_, index) => ({
+        id: `${status}-${index + 1}`,
+        name: `Karyawan ${index + 1}`,
+        nik: `20198${String(100000 + index).slice(-6)}${String(index % 10)}`,
+        email: `karyawan${index + 1}@company.id`,
+        accountNumber: `10129${String(2000000000 + index).slice(-8)}`,
+        status,
+      }));
+    }
+
+    function hydrateEmployees() {
+      state.employees = [
+        ...createDummyEmployees(100, 'aktif'),
+        ...createDummyEmployees(50, 'butuhKonfirmasi'),
+        ...createDummyEmployees(6, 'menungguPersetujuan'),
+      ];
+
+      const hasPendingConfirmation = state.employees.some((employee) => employee.status === 'butuhKonfirmasi');
+      state.activeTab = hasPendingConfirmation ? 'butuhKonfirmasi' : 'aktif';
+    }
 
     function shuffleText(text) {
       const chars = text.split('');
@@ -361,43 +369,141 @@
       }
     }
 
-    function setVisibility(element, show) {
-      if (!element) return;
-      element.classList.toggle('hidden', !show);
+    function getEmployeesByTab(tabKey) {
+      return state.employees.filter((employee) => employee.status === tabKey);
     }
 
-    function renderHero() {
-      setVisibility(payrollStatusBadge, state.payrollActive);
+    function getFilteredEmployees() {
+      const tabData = getEmployeesByTab(state.activeTab);
+      if (!state.searchQuery) return tabData;
+
+      const query = state.searchQuery.toLowerCase();
+      return tabData.filter((employee) => (
+        employee.name.toLowerCase().includes(query)
+        || employee.nik.includes(query)
+        || employee.email.toLowerCase().includes(query)
+        || employee.accountNumber.includes(query)
+      ));
     }
 
-    function renderAccounts() {
-      setVisibility(accountLoadingEl, state.accountsLoading);
-      setVisibility(accountErrorEl, state.accountsError);
-      setVisibility(accountEmptyEl, !state.accountsLoading && !state.accountsError && state.accounts.length === 0);
+    function getStatusChip(status) {
+      if (status === 'aktif') {
+        return '<span class="rounded-full bg-[#f1f9ef] px-3 py-1 text-[14px] text-[#5ea94c]">Aktif</span>';
+      }
+      if (status === 'butuhKonfirmasi') {
+        return '<span class="rounded-full bg-[#fef5e8] px-3 py-1 text-[14px] text-[#e38319]">Butuh Konfirmasi</span>';
+      }
+      return '<span class="rounded-full bg-slate-100 px-3 py-1 text-[14px] text-slate-600">Menunggu Persetujuan</span>';
     }
 
-    function fetchAccounts() {
-      state.accountsLoading = true;
-      state.accountsError = false;
-      renderAccounts();
+    function renderTabs() {
+      if (!employeeTabs) return;
 
-      return new Promise((resolve) => setTimeout(resolve, 800)).then(() => {
-        state.accountsLoading = false;
-        state.accountsError = false;
-        state.accounts = [];
-        renderAccounts();
-      }).catch(() => {
-        state.accountsLoading = false;
-        state.accountsError = true;
-        renderAccounts();
+      const html = TAB_CONFIG.map((tab) => {
+        const isActive = tab.key === state.activeTab;
+        const count = getEmployeesByTab(tab.key).length;
+        const textClass = isActive ? 'font-bold text-slate-900 border-b-2 border-[#009faf]' : 'font-medium text-slate-600 border-b-2 border-transparent';
+
+        return `
+          <button
+            type="button"
+            data-tab-key="${tab.key}"
+            class="-mb-px inline-flex items-center gap-2 px-3 py-3 text-[16px] ${textClass}"
+          >
+            <span>${tab.label}</span>
+            ${tab.showBadge ? `<span class="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-2 text-[12px] font-bold text-white">${count}</span>` : ''}
+          </button>
+        `;
+      }).join('');
+
+      employeeTabs.innerHTML = html;
+
+      employeeTabs.querySelectorAll('[data-tab-key]').forEach((button) => {
+        button.addEventListener('click', () => {
+          state.activeTab = button.dataset.tabKey;
+          state.currentPage = 1;
+          renderEmployeeTable();
+          renderTabs();
+        });
       });
     }
 
-    renderHero();
+    function renderPagination(totalRows) {
+      if (!employeePagination) return;
 
-    retryAccountsBtn?.addEventListener('click', () => {
-      fetchAccounts();
-    });
+      const totalPages = Math.max(1, Math.ceil(totalRows / state.pageSize));
+      state.currentPage = Math.min(state.currentPage, totalPages);
+
+      employeePagination.innerHTML = `
+        <button type="button" data-page-action="prev" class="h-9 rounded-lg border border-slate-300 px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50" ${state.currentPage === 1 ? 'disabled' : ''}>Prev</button>
+        <span class="px-2 text-sm text-slate-600">Page ${state.currentPage} / ${totalPages}</span>
+        <button type="button" data-page-action="next" class="h-9 rounded-lg border border-slate-300 px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50" ${state.currentPage >= totalPages ? 'disabled' : ''}>Next</button>
+      `;
+
+      employeePagination.querySelectorAll('[data-page-action]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (button.dataset.pageAction === 'prev') {
+            state.currentPage = Math.max(1, state.currentPage - 1);
+          } else {
+            state.currentPage += 1;
+          }
+          renderEmployeeTable();
+        });
+      });
+    }
+
+    function renderEmployeeTable() {
+      if (!employeeTableBody) return;
+
+      const filteredEmployees = getFilteredEmployees();
+      const startIndex = (state.currentPage - 1) * state.pageSize;
+      const paginatedRows = filteredEmployees.slice(startIndex, startIndex + state.pageSize);
+
+      if (!paginatedRows.length) {
+        employeeTableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-3 py-6 text-center text-[16px] text-slate-500">Data karyawan tidak ditemukan.</td>
+          </tr>
+        `;
+      } else {
+        employeeTableBody.innerHTML = paginatedRows.map((employee) => `
+          <tr class="border-b border-slate-200 text-[16px] text-slate-700">
+            <td class="px-3 py-3"><input type="checkbox" aria-label="Pilih ${employee.name}" class="h-5 w-5 rounded border-slate-300"></td>
+            <td class="px-3 py-3">${employee.name}</td>
+            <td class="px-3 py-3">${employee.nik}</td>
+            <td class="px-3 py-3">${employee.email}</td>
+            <td class="px-3 py-3">${employee.accountNumber}</td>
+            <td class="px-3 py-3">${getStatusChip(employee.status)}</td>
+            <td class="px-3 py-3">
+              <div class="flex items-center justify-center gap-2">
+                <button type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-300 text-red-500" aria-label="Tolak">✕</button>
+                <button type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-300 text-[#009faf]" aria-label="Setujui">✓</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      const activeEmployees = getEmployeesByTab('aktif').length;
+      if (buatPenggajianBtn) {
+        buatPenggajianBtn.disabled = activeEmployees === 0;
+      }
+
+      renderPagination(filteredEmployees.length);
+    }
+
+    function initTableEvents() {
+      employeeSearch?.addEventListener('input', (event) => {
+        state.searchQuery = event.target.value.trim();
+        state.currentPage = 1;
+        renderEmployeeTable();
+      });
+    }
+
+    hydrateEmployees();
+    renderTabs();
+    initTableEvents();
+    renderEmployeeTable();
 
     generateCodeBtn?.addEventListener('click', () => {
       registrationCodeState.isLoading = true;
@@ -410,7 +516,6 @@
       }, 1200);
     });
 
-    fetchAccounts();
     renderRegistrationCode();
   </script>
 </body>
