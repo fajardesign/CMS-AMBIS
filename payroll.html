@@ -251,6 +251,7 @@
                       </button>
                     </div>
                   </div>
+                  <p id="generateCodeMessage" class="hidden relative z-[1] mt-2 text-sm text-emerald-700">Kode registrasi berhasil dibuat.</p>
                   <div id="codeError" class="mt-4 hidden rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
                     <div class="flex flex-wrap items-center gap-2">
                       <span class="font-semibold">Gagal memuat kode registrasi.</span>
@@ -350,6 +351,7 @@
       codeLoading: true,
       codeError: false,
       code: null,
+      codeStatus: null,
       generatingCode: false,
     };
 
@@ -361,6 +363,7 @@
     const registrationCodeValue = document.getElementById('registrationCodeValue');
     const registrationCodeStatus = document.getElementById('registrationCodeStatus');
     const registrationCodeHint = document.getElementById('registrationCodeHint');
+    const registrationCodeHeader = document.getElementById('registrationCodeHeader');
     const registrationCodeCard = document.getElementById('registrationCodeCard');
     const registrationCodeMeta = document.getElementById('registrationCodeMeta');
     const codeLoadingEl = document.getElementById('codeLoading');
@@ -372,6 +375,7 @@
     const generateLoadingIcon = document.getElementById('generateLoadingIcon');
     const copyCodeBtn = document.getElementById('copyCodeBtn');
     const copyToast = document.getElementById('copyToast');
+    const generateCodeMessage = document.getElementById('generateCodeMessage');
     let codeExpiryTimestamp = null;
     let countdownInterval = null;
 
@@ -403,6 +407,7 @@
 
       setVisibility(codeLoadingEl, state.codeLoading);
       setVisibility(codeErrorEl, state.codeError);
+      setVisibility(generateCodeMessage, false);
 
       if (state.codeError || state.codeLoading) {
         registrationCodeValue.textContent = '';
@@ -499,6 +504,7 @@
         state.codeLoading = false;
         state.codeError = false;
         state.code = code;
+        state.codeStatus = code ? 'Aktif' : '';
         if (code) {
           startCountdown(20);
         } else {
@@ -521,8 +527,12 @@
         .then((code) => {
           state.generatingCode = false;
           state.code = code;
+          state.codeStatus = 'Aktif';
           startCountdown(20);
           renderCode();
+          registrationCodeHeader?.remove();
+          generateCodeMessage.classList.remove('hidden');
+          setTimeout(() => generateCodeMessage.classList.add('hidden'), 3000);
         })
         .catch(() => {
           state.generatingCode = false;
