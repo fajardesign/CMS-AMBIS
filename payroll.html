@@ -180,6 +180,31 @@
                   </div>
                 </div>
 
+                <div id="registrationCodeCard" class="flex items-center justify-between gap-4 rounded-[12px] border-2 border-dashed border-[#009faf] bg-[#e4fbf8] px-4 py-3">
+                  <div id="registrationCodeLeft" class="flex min-w-0 items-center gap-3">
+                    <img src="img/General Widget/Amar Bank/lg-amarbank_logogram.svg" alt="Amar Bank" class="h-[24px] w-[32px] shrink-0">
+                    <div class="min-w-0">
+                      <p id="registrationCodeLabel" class="text-[16px] font-normal leading-6 text-slate-800">Kode Registrasi Payroll</p>
+                      <p id="registrationCodeValue" class="hidden text-[24px] font-bold leading-8 text-slate-800"></p>
+                    </div>
+                  </div>
+
+                  <div id="registrationCodeRight" class="flex shrink-0 items-center gap-3">
+                    <button
+                      id="generateCodeBtn"
+                      type="button"
+                      class="inline-flex h-10 min-w-[100px] items-center justify-center rounded-[10px] bg-[#009faf] px-4 text-[16px] font-semibold text-white transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#009faf]"
+                    >
+                      Buat Kode
+                    </button>
+
+                    <div id="codeGeneratedMeta" class="hidden items-center gap-3">
+                      <p class="text-[16px] font-normal text-slate-600">Expired <span class="text-[16px] font-bold text-[#e38319]">20 Hari</span></p>
+                      <img src="img/icon/General Widget/file-copy-line.svg" alt="Copy code" class="h-6 w-6">
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </article>
@@ -269,6 +294,72 @@
     const accountErrorEl = document.getElementById('accountError');
     const accountEmptyEl = document.getElementById('accountEmpty');
     const retryAccountsBtn = document.getElementById('retryAccounts');
+    const generateCodeBtn = document.getElementById('generateCodeBtn');
+    const registrationCodeLabel = document.getElementById('registrationCodeLabel');
+    const registrationCodeValue = document.getElementById('registrationCodeValue');
+    const codeGeneratedMeta = document.getElementById('codeGeneratedMeta');
+
+    const registrationCodeState = {
+      isLoading: false,
+      generatedCode: '',
+    };
+
+    function shuffleText(text) {
+      const chars = text.split('');
+      for (let i = chars.length - 1; i > 0; i -= 1) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        [chars[i], chars[randomIndex]] = [chars[randomIndex], chars[i]];
+      }
+      return chars.join('');
+    }
+
+    function generatePayrollCode() {
+      const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+      const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const numbers = '0123456789';
+      const allCharacters = `${lowercase}${uppercase}${numbers}`;
+
+      const initialChars = [
+        lowercase[Math.floor(Math.random() * lowercase.length)],
+        uppercase[Math.floor(Math.random() * uppercase.length)],
+        numbers[Math.floor(Math.random() * numbers.length)],
+      ];
+
+      while (initialChars.length < 6) {
+        initialChars.push(allCharacters[Math.floor(Math.random() * allCharacters.length)]);
+      }
+
+      return shuffleText(initialChars.join(''));
+    }
+
+    function renderRegistrationCode() {
+      if (!generateCodeBtn || !registrationCodeLabel || !registrationCodeValue || !codeGeneratedMeta) return;
+
+      if (registrationCodeState.isLoading) {
+        generateCodeBtn.disabled = true;
+        generateCodeBtn.innerHTML = '<img src="img/icon/General Widget/System Icons/ic-loading.svg" alt="Loading" class="h-5 w-5 animate-spin">';
+        return;
+      }
+
+      generateCodeBtn.disabled = false;
+
+      if (registrationCodeState.generatedCode) {
+        registrationCodeLabel.textContent = 'Kode Payroll';
+        registrationCodeValue.textContent = registrationCodeState.generatedCode;
+        registrationCodeValue.classList.remove('hidden');
+        generateCodeBtn.classList.add('hidden');
+        codeGeneratedMeta.classList.remove('hidden');
+        codeGeneratedMeta.classList.add('flex');
+      } else {
+        registrationCodeLabel.textContent = 'Kode Registrasi Payroll';
+        registrationCodeValue.textContent = '';
+        registrationCodeValue.classList.add('hidden');
+        generateCodeBtn.classList.remove('hidden');
+        generateCodeBtn.textContent = 'Buat Kode';
+        codeGeneratedMeta.classList.add('hidden');
+        codeGeneratedMeta.classList.remove('flex');
+      }
+    }
 
     function setVisibility(element, show) {
       if (!element) return;
@@ -308,7 +399,19 @@
       fetchAccounts();
     });
 
+    generateCodeBtn?.addEventListener('click', () => {
+      registrationCodeState.isLoading = true;
+      renderRegistrationCode();
+
+      setTimeout(() => {
+        registrationCodeState.generatedCode = generatePayrollCode();
+        registrationCodeState.isLoading = false;
+        renderRegistrationCode();
+      }, 1200);
+    });
+
     fetchAccounts();
+    renderRegistrationCode();
   </script>
 </body>
 </html>
