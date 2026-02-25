@@ -401,15 +401,9 @@
       setVisibility(generateSpinner, state.generatingCode);
       setVisibility(generateCodeBtn, !state.generatingCode);
       setVisibility(generateLoadingIcon, state.generatingCode);
-      generateCodeBtnLabel.textContent = state.code ? 'Perbarui Kode' : 'Buat Kode';
-
-      if (state.code && !state.generatingCode) {
-        generateCodeBtn.style.backgroundColor = '#ffffff';
-        generateCodeBtn.style.color = '#009FAF';
-      } else {
-        generateCodeBtn.style.backgroundColor = '#009FAF';
-        generateCodeBtn.style.color = '#ffffff';
-      }
+      generateCodeBtnLabel.textContent = 'Buat Kode';
+      generateCodeBtn.style.backgroundColor = '#009FAF';
+      generateCodeBtn.style.color = '#ffffff';
 
       setVisibility(codeLoadingEl, state.codeLoading);
       setVisibility(codeErrorEl, state.codeError);
